@@ -1,0 +1,25 @@
+{
+  "name": "subscription-manager",
+  "version": "1.0.0",
+  "description": "A subscription manager web-app",
+  "main": "index.js",
+  "scripts": {
+    "compile:scss": "node-sass sass/main.scss css/style.css",
+    "compile:scss--watch": "node-sass sass/*.scss css/style.css -w",
+    "start": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tyler-Gee/Subscription-Manager.git"
+  },
+  "author": "Tyler Gee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tyler-Gee/Subscription-Manager/issues"
+  },
+  "homepage": "https://github.com/Tyler-Gee/Subscription-Manager#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1",
+    "node-sass": "^4.14.1"
+  }
+}

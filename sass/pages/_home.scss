@@ -1,0 +1,33 @@
+.section-features{
+    position: relative;
+    top: 11rem;
+    height: 94rem;
+    width: 100%;
+    @include border;
+
+    &__header-box{
+        width: 100%;
+        text-align: center;
+        @include border;
+    }
+
+    &__feature-box{
+        height: 70rem;
+        width: 100%;
+        padding: 0 15rem;
+        @include border;
+    
+        &-feature--1{
+            @include border;
+            height: 100%;
+        }
+        &-feature--2{
+            @include border;
+            height: 100%;
+        }
+        &-feature--3{
+            @include border;
+            height: 100%;
+        }
+    }
+}

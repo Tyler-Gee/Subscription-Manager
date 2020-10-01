@@ -1,0 +1,128 @@
+.sign-in-module{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+
+    &__container--upper{
+        height: 60%;
+        width: 100%;
+        text-align: center;
+    }
+
+    &__heading{
+        position: relative;
+        top: 20rem;
+        font-size: 3rem;
+    }
+
+    &__form{
+        position: relative;
+        top: 23rem;
+        line-height: 100%;
+        vertical-align: middle;
+        
+        input{
+            position: relative;
+            height: 4rem;
+            width: 50%;
+            border-radius: 2px;
+            background-color: transparent;
+            font-size: 2rem;
+
+            &[name$="--email"]{
+                margin-bottom: 3rem;
+            }
+        }
+    }
+
+    &__user-agreement-text{
+        position: relative;
+        top: 26rem;
+        font-size: 1.4rem;
+        color: rgba(128, 128, 128, .4);
+    }
+
+    &__btn{
+        position: relative;
+        top: 29rem;
+        width: 25%;
+        font-family: "Lato";
+        font-size: 3rem;
+        padding: 1.5rem 0;
+        border-radius: 0 3px;
+
+        &--password-recover{
+            position: relative;
+            top: 23rem;
+            right: 12.5rem;
+            font-size: 1.4rem;
+            color: rgba(128, 128, 128, .4);
+            }
+        &--sign-up-small{
+            position: relative;
+            top: 23rem;
+            left: 12.5rem;
+            right: 0;
+            font-size: 1.4rem;
+            color: rgba(128, 128, 128, .4);
+        }
+    }
+
+    &__sign-in-option-text{
+        position: relative;
+        top: 30rem;
+    }
+
+    &__container--lower{
+        position: absolute;
+        bottom: 7%;
+        height: 3rem;
+        width: 100%;
+        padding: 0 7rem;
+
+        .colored-line--container{
+            height: 100%;
+            width: 100%;
+
+            [class^="colored-line--div"]{
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+                height: 7%;
+                width: 70%;
+                margin: 0 auto;
+                background-color: black;
+                border-radius: 4rem;
+            }
+            
+            .colored-line--div-right{
+                margin: 0 0 0 30%;
+            }
+
+            .colored-line--div-left{
+                margin: 0 30% 0 0;
+            }
+        }
+
+        .icon-container--social{
+            height: 3rem;
+            width: 100%;
+
+            .sign-in-module__link-account-btn{
+                display: inline-block;
+                height: 3rem;
+                width: 100%;
+                text-align: center;
+
+                .social-media-icon--svg{
+                    position: relative;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    height: 3rem;
+                    width: 3rem;            
+                }
+            }
+        }
+    }
+}

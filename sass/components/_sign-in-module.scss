@@ -1,0 +1,115 @@
+.sign-in-module{
+    position: relative;
+    z-index: 1;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    height: 50%;
+    width: 50%;
+    background-color: white;
+    border-radius: 6px;
+    border: 1px solid grey;
+
+    &__container--upper{
+        border-bottom:1px solid grey;
+        height: 20%;
+        width: 100%;
+        padding: 0 2rem;
+    }
+
+    &__link-account-btn{
+        position: relative;
+        display: inline-block;
+        height: 9.94rem;
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 92% 92%;
+        
+        &--google{
+            background-image: url(../../img/google-icon.svg);
+        }
+        &--facebook{
+            background-image: url(../../img/facebook-icon.svg);
+        }
+        &--paypal{
+            background-image: url(../../img/paypal-words.svg);
+        }
+    }
+
+    &__container--lower{
+        position: relative;
+        height: 80%;
+        text-align: center;
+    }
+
+    &__heading{
+        position: relative;
+        top: 3rem;
+        font-size: 2rem;
+    }
+
+    &__form{
+        position: relative;
+        top: 6rem;
+        line-height: 100%;
+        vertical-align: middle;
+        
+        input{
+            position: relative;
+            height: 4rem;
+            width: 70%;
+            border: 1px solid grey;
+            border-radius: 2px;
+            background-color: transparent;
+            font-size: 2rem;
+
+            &[name$="--email"]{
+                margin-bottom: 3rem;
+            }
+        }
+    }
+
+    &__user-agreement-text{
+        position: relative;
+        top: 8rem;
+        font-size: 1.4rem;
+        color: grey;
+    }
+
+    &__btn{
+        position: absolute;
+        bottom: 0%;
+        left: 0;
+        width: 100%;
+        padding: 0.5rem 0;
+        border-radius: 0 5px;
+        font-size: 3rem;
+    }
+}
+
+/*                 <div class="sign-in-module">
+                    <div class="sign-in-module__container--upper">
+                        <div class="row">
+                            <div class="col-1-of-3">
+                                <a href="" class="sign-in-module__link-account-btn sign-in-module__link-account-btn--google"></a>
+                            </div>
+                            <div class="col-1-of-3">   
+                                <a href="" class="sign-in-module__link-account-btn sign-in-module__link-account-btn--facebook"></a>
+                            </div>
+                            <div class="col-1-of-3">
+                                <a href="" class="sign-in-module__link-account-btn sign-in-module__link-account-btn--paypal"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sign-in-module__container--lower">
+                        <h1 class="sign-in-module__heading">Link an account or<br>use email</h1>
+                        <form class="sign-in-module__form">
+                            <input type="email" name="sign-in-module__form--email" placeholder="  Email"><br>
+                            <input type="password" name="sign-in-module__form--password" placeholder="  Password"><br>
+                        </form>
+                        <p class="sign-in-module__user-agreement-text">By clicking on Sign up you agree with<br>our Terms & Conditions</p>
+                        <a href="" class="btn btn--primary-color btn--animated sign-in-module__btn"> Sign up</a>
+                    </div>
+                </div> 
+*/

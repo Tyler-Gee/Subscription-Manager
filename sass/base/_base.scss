@@ -1,0 +1,22 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+body {
+    box-sizing: border-box;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    background-color: $color-grey-light;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+html {
+    font-size: 62.5%;  // Defines what 1 Rem is compared to pixels
+}

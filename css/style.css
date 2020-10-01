@@ -1,0 +1,796 @@
+/* $color-primary-light: #44f6ff;
+$color-primary: #00f3ff;
+$color-primary-dark: #00b2bb;
+$color-primary-light-2: #63aaff;
+$color-primary-2: #0073fc;
+$color-primary-dark-2: #005cc9;
+$color-primary-3: #00b3c9;
+$color-primary-dark-3: #00c6a1; */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit; }
+
+body {
+  box-sizing: border-box;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  background-color: #fafafa; }
+
+body::-webkit-scrollbar {
+  display: none; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  font-family: "lato", sans-serif;
+  font-weight: 400;
+  line-height: 1.7;
+  color: #777; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Open Sans", sans-serif;
+  margin: 0; }
+
+.heading-primary--main {
+  font-size: 4rem;
+  color: white;
+  margin-bottom: 0rem; }
+
+.heading-primary--sub {
+  font-size: 2.5rem;
+  color: white; }
+
+.heading-secondary--main {
+  font-family: "lato", sans-serif;
+  font-size: 3rem; }
+
+.heading-secondary--sub {
+  font-family: "lato", sans-serif;
+  font-size: 1.6rem; }
+
+.btn {
+  display: inline-block;
+  font-family: "lato";
+  font-weight: 400;
+  font-size: 1.6rem;
+  text-align: center; }
+  .btn:link, .btn:visited {
+    text-decoration: none; }
+  .btn:hover {
+    text-decoration: none; }
+  .btn:active {
+    text-decoration: none; }
+  .btn--primary-color {
+    color: #ffffff;
+    background-color: #9846f2; }
+
+.sign-in-module {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  background-color: white; }
+  .sign-in-module__container--upper {
+    height: 60%;
+    width: 100%;
+    text-align: center; }
+  .sign-in-module__heading {
+    position: relative;
+    top: 20rem;
+    font-size: 3rem; }
+  .sign-in-module__form {
+    position: relative;
+    top: 23rem;
+    line-height: 100%;
+    vertical-align: middle; }
+    .sign-in-module__form input {
+      position: relative;
+      height: 4rem;
+      width: 50%;
+      border-radius: 2px;
+      background-color: transparent;
+      font-size: 2rem; }
+      .sign-in-module__form input[name$="--email"] {
+        margin-bottom: 3rem; }
+  .sign-in-module__user-agreement-text {
+    position: relative;
+    top: 26rem;
+    font-size: 1.4rem;
+    color: rgba(128, 128, 128, 0.4); }
+  .sign-in-module__btn {
+    position: relative;
+    top: 29rem;
+    width: 25%;
+    font-family: "Lato";
+    font-size: 3rem;
+    padding: 1.5rem 0;
+    border-radius: 0 3px; }
+    .sign-in-module__btn--password-recover {
+      position: relative;
+      top: 23rem;
+      right: 12.5rem;
+      font-size: 1.4rem;
+      color: rgba(128, 128, 128, 0.4); }
+    .sign-in-module__btn--sign-up-small {
+      position: relative;
+      top: 23rem;
+      left: 12.5rem;
+      right: 0;
+      font-size: 1.4rem;
+      color: rgba(128, 128, 128, 0.4); }
+  .sign-in-module__sign-in-option-text {
+    position: relative;
+    top: 30rem; }
+  .sign-in-module__container--lower {
+    position: absolute;
+    bottom: 7%;
+    height: 3rem;
+    width: 100%;
+    padding: 0 7rem; }
+    .sign-in-module__container--lower .colored-line--container {
+      height: 100%;
+      width: 100%; }
+      .sign-in-module__container--lower .colored-line--container [class^="colored-line--div"] {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 7%;
+        width: 70%;
+        margin: 0 auto;
+        background-color: black;
+        border-radius: 4rem; }
+      .sign-in-module__container--lower .colored-line--container .colored-line--div-right {
+        margin: 0 0 0 30%; }
+      .sign-in-module__container--lower .colored-line--container .colored-line--div-left {
+        margin: 0 30% 0 0; }
+    .sign-in-module__container--lower .icon-container--social {
+      height: 3rem;
+      width: 100%; }
+      .sign-in-module__container--lower .icon-container--social .sign-in-module__link-account-btn {
+        display: inline-block;
+        height: 3rem;
+        width: 100%;
+        text-align: center; }
+        .sign-in-module__container--lower .icon-container--social .sign-in-module__link-account-btn .social-media-icon--svg {
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+          height: 3rem;
+          width: 3rem; }
+
+.header {
+  position: relative;
+  height: 100rem;
+  width: 100%;
+  margin: 0 auto; }
+  .header::after {
+    content: "";
+    display: table;
+    clear: both; }
+  .header [class$="-side"] {
+    float: left;
+    height: 100%;
+    width: 50%; }
+  .header__landing-info-side {
+    background: linear-gradient(to bottom, rgba(3, 235, 255, 0.4) 10%, 50%, rgba(152, 70, 242, 0.4)), url(../../img/shutterstock_60838927.jpg) top left/auto 100% no-repeat; }
+    .header__landing-info-side .header__text-box {
+      position: relative;
+      top: 40%;
+      transform: translateY(-50%);
+      height: 50%;
+      width: 80%;
+      margin: 0rem auto 0 auto;
+      background-color: transparent;
+      text-align: center; }
+      .header__landing-info-side .header__text-box--paragraph {
+        margin-top: 10rem; }
+        .header__landing-info-side .header__text-box--paragraph-point {
+          /* height: 4rem;
+                    outline: 1px solid $color-white; */ }
+          .header__landing-info-side .header__text-box--paragraph-point:not(:last-child) {
+            margin-bottom: 12em; }
+
+/* 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700,900" rel="stylesheet">
+
+    <script src="index.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="css/icon-fonts.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Subscription-Manager | Manage your subscriptions responsibly</title>
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="header__landing-info-side">
+                <div class="header__text-box">
+                    <div class="header__text-box--titles">
+                        <h1 class="heading-primary--main"></h1>
+                        <h1 class="heading-primary--sub"></h1>
+                    </div>
+                    <div class="header__text-box--paragraph">
+                        <div class="row">
+                            <div class="col-1-of-2 header__text-box--paragraph-point">
+                                <i class="header__text-box--paragraph-point-icon"></i>
+                            </div>
+                            <div class="col-1-of-2 header__text-box--paragraph-point">
+                                <i class="header__text-box--paragraph-point-icon"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1-of-2 header__text-box--paragraph-point">
+                                <i class="header__text-box--paragraph-point-icon"></i>
+                            </div>
+                            <div class="col-1-of-2 header__text-box--paragraph-point">
+                                <i class="header__text-box--paragraph-point-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header__account-action-side">
+                <div class="sign-in-module">
+                    <div class="sign-in-module__container--upper">
+                        <h1 class="sign-in-module__heading">Log In</h1>
+                        <form class="sign-in-module__form">
+                            <input type="email" name="sign-in-module__form--email" placeholder="  Email"><br>
+                            <input type="password" name="sign-in-module__form--password" placeholder="  Password"><br>
+                        </form>
+                        <p class="sign-in-module__user-agreement-text">By clicking on Sign up you agree with<br>our Terms & Conditions</p>
+                        <a href="" class="btn btn--primary-color btn--animated sign-in-module__btn"> SIGN IN</a>
+                        <p class="sign-in-module__sign-in-option-text"> Or with</p>
+                    </div>
+                    <div class="row sign-in-module__container--lower">
+                        <div class="col-1-of-3 colored-line--container">
+                            <div class="colored-line--div-right"></div>
+                        </div>
+                        <div class="col-1-of-3">
+                            <div class="row icon-container--social">
+                                <div class="col-1-of-3">
+                                    <a href="" class="sign-in-module__link-account-btn">
+                                        <img src="img/google.svg" alt="" class="social-media-icon--svg svg--google">
+                                    </a>
+                                </div>
+                                <div class="col-1-of-3">
+                                    <a href="" class="sign-in-module__link-account-btn">
+                                        <img src="img/facebook.svg" alt="" class="social-media-icon--svg svg--facebook">
+                                    </a>
+                                </div>
+                                <div class="col-1-of-3">
+                                    <a href="" class="sign-in-module__link-account-btn">
+                                        <img src="img/paypal.svg" alt="" class="social-media-icon--svg svg--paypal">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1-of-3 colored-line--container">
+                            <div class="colored-line--div-left"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="section-features">
+            <div class="section-features__header-box">
+                <h2 class="section-features__heading heading-secondary--main">Experience a new way to manage subscriptions</h2>
+                <h2 class="section-features__heading heading-secondary--sub">By having all your subscriptions in one place, we help you
+                    keep<br> your budget intact and your stress levels low.</h2>
+            </div>
+            <div class="row section-features__feature-box">
+                <div class="col-1-of-3 section-features__feature-box-feature--1">
+                    <h3 class="heading-tertiary--main">See all subscription</h3>
+                    <h4 class="heading-tertiary--sub">View all your subscriptions in one easily manageable place</h4>
+                </div>
+                <div class="col-1-of-3 section-features__feature-box-feature--2">
+                    <h3 class="heading-tertiary--main"> Super flexible</h3>
+                    <h4 class="heading-tertiary--sub">Add and remove subscription, rearrange subscription and mark subscriptions for timed cancellation </h4>
+                </div>
+                <div class="col-1-of-3 section-features__feature-box-feature--3">
+                    <h3 class="heading-tertiary--main"></h3>
+                    <h4 class="heading-tertiary--sub"></h4>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+
+*/
+.row {
+  max-width: 100%;
+  margin: 0 auto; }
+  .row::after {
+    content: "";
+    display: table;
+    clear: both; }
+  .row [class^="col-"] {
+    float: left; }
+    .row [class^="col-"]:not(:last-child) {
+      margin-right: 6rem; }
+  .row .col-1-of-1 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(1 * ((100% - ((1 - 1) * 6rem)) / 1) + ( (1 - 1) * 6rem)); }
+  .row .col-1-of-2 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(1 * ((100% - ((2 - 1) * 6rem)) / 2) + ( (1 - 1) * 6rem)); }
+  .row .col-1-of-3 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(1 * ((100% - ((3 - 1) * 6rem)) / 3) + ( (1 - 1) * 6rem)); }
+  .row .col-2-of-3 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(2 * ((100% - ((3 - 1) * 6rem)) / 3) + ( (2 - 1) * 6rem)); }
+  .row .col-1-of-4 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(1 * ((100% - ((4 - 1) * 6rem)) / 4) + ( (1 - 1) * 6rem)); }
+  .row .col-2-of-4 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(2 * ((100% - ((4 - 1) * 6rem)) / 4) + ( (2 - 1) * 6rem)); }
+  .row .col-3-of-4 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(3 * ((100% - ((4 - 1) * 6rem)) / 4) + ( (3 - 1) * 6rem)); }
+  .row .col-1-of-5 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(1 * ((100% - ((5 - 1) * 6rem)) / 5) + ( (1 - 1) * 6rem)); }
+  .row .col-2-of-5 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(2 * ((100% - ((5 - 1) * 6rem)) / 5) + ( (2 - 1) * 6rem)); }
+  .row .col-3-of-5 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(3 * ((100% - ((5 - 1) * 6rem)) / 5) + ( (3 - 1) * 6rem)); }
+  .row .col-4-of-5 {
+    /*
+    width: calc((100% - 6rem) / 2);
+    width: calc((100% - (2 * 6rem )) / 3);
+    width: calc(2 * ((100% - (2 * 6rem )) / 3) + 6rem);
+    width: calc((100% - (3 * 6rem )) / 4);
+    width: calc(2 * ((100% - (3 * 6rem )) / 4) + 6rem);
+    width: calc(3 * ((100% - (3 * 6rem )) / 4) + (6rem * 2));
+*/
+    width: calc(4 * ((100% - ((5 - 1) * 6rem)) / 5) + ( (4 - 1) * 6rem)); }
+
+/* 
+    <div class="grid-test">
+            <div class="row">
+                <div class="col-1-of-1">Col 1 of 1</div>
+            </div>
+            <div class="row">
+                <div class="col-1-of-2">Col 1 of 2</div>
+                <div class="col-1-of-2">Col 1 of 2</div>
+            </div>
+            <div class="row">
+                <div class="col-1-of-3">Col 1 of 3</div>
+                <div class="col-2-of-3">Col 2 of 3</div>
+            </div>
+            <div class="row">
+                <div class="col-1-of-4">Col 1 of 4</div>
+                <div class="col-3-of-4">Col 3 of 4</div>
+            </div>
+            <div class="row">
+                <div class="col-2-of-4">Col 2 of 4</div>
+                <div class="col-2-of-4">Col 2 of 4</div>
+            </div>
+            <div class="row">
+                <div class="col-2-of-5">Col 2 of 5</div>
+                <div class="col-3-of-5">Col 3 of 5</div>
+            </div>
+            <div class="row">
+                <div class="col-1-of-5">Col 1 of 5</div>
+                <div class="col-4-of-5">Col 4 of 5</div>
+            </div>
+        </div>
+*/
+.section-features {
+  position: relative;
+  top: 11rem;
+  height: 94rem;
+  width: 100%;
+  border: 1px solid red; }
+  .section-features__header-box {
+    width: 100%;
+    text-align: center;
+    border: 1px solid red; }
+  .section-features__feature-box {
+    height: 70rem;
+    width: 100%;
+    padding: 0 15rem;
+    border: 1px solid red; }
+    .section-features__feature-box-feature--1 {
+      border: 1px solid red;
+      height: 100%; }
+    .section-features__feature-box-feature--2 {
+      border: 1px solid red;
+      height: 100%; }
+    .section-features__feature-box-feature--3 {
+      border: 1px solid red;
+      height: 100%; }
+
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+/* Document
+   ========================================================================== */
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+html {
+  line-height: 1.15;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */ }
+
+/* Sections
+   ========================================================================== */
+/**
+ * Remove the margin in all browsers.
+ */
+body {
+  margin: 0; }
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+main {
+  display: block; }
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+h1 {
+  font-size: 2em; }
+
+/* Grouping content
+   ========================================================================== */
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */ }
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+pre {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/* Text-level semantics
+   ========================================================================== */
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+a {
+  background-color: transparent; }
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+abbr[title] {
+  border-bottom: none;
+  /* 1 */
+  text-decoration: underline;
+  /* 2 */
+  text-decoration: underline dotted;
+  /* 2 */ }
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+b,
+strong {
+  font-weight: bolder; }
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */ }
+
+/**
+ * Add the correct font size in all browsers.
+ */
+small {
+  font-size: 80%; }
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline; }
+
+sub {
+  bottom: -0.25em; }
+
+sup {
+  top: -0.5em; }
+
+/* Embedded content
+   ========================================================================== */
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+img {
+  border-style: none; }
+
+/* Forms
+   ========================================================================== */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  line-height: 1.15;
+  /* 1 */
+  margin: 0;
+  /* 2 */ }
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+button,
+input {
+  /* 1 */
+  overflow: visible; }
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+button,
+select {
+  /* 1 */
+  text-transform: none; }
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button; }
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0; }
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText; }
+
+/**
+ * Correct the padding in Firefox.
+ */
+fieldset {
+  padding: 0.35em 0.75em 0.625em; }
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+legend {
+  box-sizing: border-box;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  display: table;
+  /* 1 */
+  max-width: 100%;
+  /* 1 */
+  padding: 0;
+  /* 3 */
+  white-space: normal;
+  /* 1 */ }
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+progress {
+  vertical-align: baseline; }
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+textarea {
+  overflow: auto; }
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+  padding: 0;
+  /* 2 */ }
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */ }
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */ }
+
+/* Interactive
+   ========================================================================== */
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+details {
+  display: block; }
+
+/*
+ * Add the correct display in all browsers.
+ */
+summary {
+  display: list-item; }
+
+/* Misc
+   ========================================================================== */
+/**
+ * Add the correct display in IE 10+.
+ */
+template {
+  display: none; }
+
+/**
+ * Add the correct display in IE 10.
+ */
+[hidden] {
+  display: none; }

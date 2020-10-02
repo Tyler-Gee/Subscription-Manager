@@ -12,23 +12,23 @@
 
     &__heading{
         position: relative;
-        top: 20rem;
-        font-size: 3rem;
+        top: 19rem;
+        font-size: 5rem;
     }
 
     &__form{
         position: relative;
-        top: 23rem;
-        line-height: 100%;
-        vertical-align: middle;
+        top: 25.5rem;
+        text-align: center;
         
         input{
             position: relative;
-            height: 4rem;
+            height: 6rem;
             width: 50%;
-            border-radius: 2px;
-            background-color: transparent;
             font-size: 2rem;
+            border:.15rem solid grey;
+            border-radius: 3px;
+            padding-left: 1rem;
 
             &[name$="--email"]{
                 margin-bottom: 3rem;
@@ -38,30 +38,30 @@
 
     &__user-agreement-text{
         position: relative;
-        top: 26rem;
+        top: 30rem;
         font-size: 1.4rem;
         color: rgba(128, 128, 128, .4);
     }
 
     &__btn{
         position: relative;
-        top: 29rem;
-        width: 25%;
+        top: 34rem;
+        width: 30%;
         font-family: "Lato";
         font-size: 3rem;
-        padding: 1.5rem 0;
+        padding: 2.5rem 0;
         border-radius: 0 3px;
 
         &--password-recover{
             position: relative;
-            top: 23rem;
+            top: 26rem;
             right: 12.5rem;
             font-size: 1.4rem;
             color: rgba(128, 128, 128, .4);
             }
         &--sign-up-small{
             position: relative;
-            top: 23rem;
+            top: 26rem;
             left: 12.5rem;
             right: 0;
             font-size: 1.4rem;
@@ -71,12 +71,14 @@
 
     &__sign-in-option-text{
         position: relative;
-        top: 30rem;
+        top: 35rem;
+        font-size: 1.6rem;
+        color: grey;
     }
 
     &__container--lower{
         position: absolute;
-        bottom: 7%;
+        bottom: 10%;
         height: 3rem;
         width: 100%;
         padding: 0 7rem;
@@ -126,3 +128,82 @@
         }
     }
 }
+
+/* 
+
+<header>
+        <div class="header">
+            <div class="header__landing-info-side">
+                <div class="header__text-box">
+                    <div class="header__text-box--titles">
+                        <h1 class="heading-primary--main"></h1>
+                        <h1 class="heading-primary--sub"></h1>
+                    </div>
+                    <div class="header__text-box--paragraph">
+                        <div class="row">
+                            <div class="col-1-of-2 header__text-box--paragraph-point">
+                                <i class="header__text-box--paragraph-point-icon"></i>
+                            </div>
+                            <div class="col-1-of-2 header__text-box--paragraph-point">
+                                <i class="header__text-box--paragraph-point-icon"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-1-of-2 header__text-box--paragraph-point">
+                                <i class="header__text-box--paragraph-point-icon"></i>
+                            </div>
+                            <div class="col-1-of-2 header__text-box--paragraph-point">
+                                <i class="header__text-box--paragraph-point-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header__account-action-side">
+                <div class="sign-in-module">
+                    <div class="sign-in-module__container--upper">
+                        <h1 class="sign-in-module__heading">Log In</h1>
+                        <form class="sign-in-module__form">
+                            <input type="email" name="sign-in-module__form--email" placeholder="Email"><br>
+                            <input type="password" name="sign-in-module__form--password" placeholder="Password"><br>
+                        </form>
+                        <a href="" class="btn sign-in-module__btn--password-recover">Forgot Password?</a>
+                        <a href="" class="btn sign-in-module__btn--sign-up-small">Need an account?</a>
+                        <p class="sign-in-module__user-agreement-text">By clicking on Sign up you agree with<br>our Terms & Conditions</p>
+                        <a href="" class="btn btn--primary-color btn--animated sign-in-module__btn"> SIGN IN</a>
+                        <p class="sign-in-module__sign-in-option-text"> Or with</p>
+                    </div>
+                    <div class="row sign-in-module__container--lower">
+                        <div class="col-1-of-3 colored-line--container">
+                            <div class="colored-line--div-right"></div>
+                        </div>
+                        <div class="col-1-of-3">
+                            <div class="row icon-container--social">
+                                <div class="col-1-of-3">
+                                    <a href="" class="sign-in-module__link-account-btn">
+                                        <img src="img/google.svg" alt="" class="social-media-icon--svg svg--google">
+                                    </a>
+                                </div>
+                                <div class="col-1-of-3">
+                                    <a href="" class="sign-in-module__link-account-btn">
+                                        <img src="img/facebook.svg" alt="" class="social-media-icon--svg svg--facebook">
+                                    </a>
+                                </div>
+                                <div class="col-1-of-3">
+                                    <a href="" class="sign-in-module__link-account-btn">
+                                        <img src="img/paypal.svg" alt="" class="social-media-icon--svg svg--paypal">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-1-of-3 colored-line--container">
+                            <div class="colored-line--div-left"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+*/

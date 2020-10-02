@@ -1,0 +1,166 @@
+.sign-in-module{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    width: 100%;
+    padding: 0 18rem 0 0;
+
+    &__container--upper{
+        height: 85%;
+        width: 100%;
+        text-align: center;
+    }
+
+    &__heading{
+        padding-top: 19rem;
+        font-size: 5rem;
+        color: white;
+    }
+
+    &__form{
+        margin-top: 6.5rem;
+        text-align: center;
+        
+        input{
+            height: 6rem;
+            width: 62%;
+            font-size: 2rem;
+            border:.15rem solid grey;
+            border-radius: 3px;
+            padding-left: 1rem;
+
+            &[name$="--email"]{
+                margin-bottom: 3rem;
+            }
+        }
+    }
+
+    &__user-agreement-text{
+        margin-top: 3.8rem;
+        font-size: 1.4rem;
+        color: white;
+    }
+
+    &__btn{
+        margin-top: 4rem;
+        width: 37%;
+        font-family: "Lato";
+        font-size: 3rem;
+        padding: 2.5rem 0;
+        border-radius: 0 3px;
+
+        &--password-recover{
+            margin: .5rem 13% 0 0;
+            font-size: 1.4rem;
+            color: white;
+        }
+        &--sign-up-small{
+            margin: .5rem 0 0 13%;
+            font-size: 1.4rem;
+            color: white;
+        }
+    }
+
+    &__sign-in-option-text{
+        position: relative;
+        top: 35rem;
+        font-size: 1.6rem;
+        color: white;
+    }
+
+    &__container--lower{
+        height: 15%;
+        width: 100%;
+
+
+        .colored-line--container{
+            height: 100%;
+            width: 100%;
+
+            [class^="colored-line--div"]{
+                height: 1.5%;
+                width: 70%;
+                background-color: black;
+                border-radius: 4rem;
+                margin: 7% auto 0 auto
+            }
+        }
+
+        .icon-container--social{
+            height: 3rem;
+            width: 100%;
+            text-align: center;
+            margin: 0 auto;
+        
+
+            .sign-in-module__link-account-btn{
+                display: inline-block;
+                height: 3rem;
+                width: 3rem;
+    
+
+                .social-media-icon--svg{
+                    position: relative;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    height: 3rem;
+                    width: 3rem;            
+                }
+            }
+        }
+    }
+}
+
+/* <header>
+        <div class="header">
+            <div class="nav-bar"></div>
+            <div class="row">
+                <div class="no-gutter-col-1-of-2 header__side header__side--left"></div>
+                <div class="no-gutter-col-1-of-2 header__side header__side--right">
+                    <div class="sign-in-module">
+                        <div class="sign-in-module__container--upper">
+                            <h1 class="sign-in-module__heading">Log In</h1>
+                            <form class="sign-in-module__form">
+                                <input type="email" name="sign-in-module__form--email" placeholder="Email"><br>
+                                <input type="password" name="sign-in-module__form--password" placeholder="Password"><br>
+                            </form>
+                            <a href="" class="btn sign-in-module__btn--password-recover">Forgot Password?</a>
+                            <a href="" class="btn sign-in-module__btn--sign-up-small">Need an account?</a>
+                            <p class="sign-in-module__user-agreement-text">By clicking on Sign up you agree with<br>our Terms & Conditions</p>
+                            <a href="" class="btn btn--primary-color btn--animated sign-in-module__btn"> SIGN IN</a>
+                            <p class="sign-in-module__sign-in-option-text"> Or with</p>
+                        </div>
+                        <div class="row sign-in-module__container--lower">
+                            <div class="no-gutter-col-1-of-3 colored-line--container">
+                                <div class="colored-line--div-right"></div>
+                            </div>
+                            <div class="no-gutter-col-1-of-3">
+                                <div class="row icon-container--social">
+                                    <div class="col-1-of-3">
+                                        <a href="" class="sign-in-module__link-account-btn">
+                                            <img src="img/google.svg" alt="" class="social-media-icon--svg svg--google">
+                                        </a>
+                                    </div>
+                                    <div class="col-1-of-3">
+                                        <a href="" class="sign-in-module__link-account-btn">
+                                            <img src="img/facebook.svg" alt="" class="social-media-icon--svg svg--facebook">
+                                        </a>
+                                    </div>
+                                    <div class="col-1-of-3">
+                                        <a href="" class="sign-in-module__link-account-btn">
+                                            <img src="img/paypal.svg" alt="" class="social-media-icon--svg svg--paypal">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="no-gutter-col-1-of-3 colored-line--container">
+                                <div class="colored-line--div-left"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </header>
+*/

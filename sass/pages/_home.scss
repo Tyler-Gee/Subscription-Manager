@@ -1,33 +1,48 @@
 .section-features{
-    position: relative;
-    top: 11rem;
-    height: 94rem;
+    height: 101rem;
     width: 100%;
-    @include border;
+    text-align: center;
 
     &__header-box{
+        height: 35%;
         width: 100%;
-        text-align: center;
-        @include border;
+    }
+
+    &__heading{
+        position: relative;
+        top: 70%;
+        transform: translateY(-50%);
     }
 
     &__feature-box{
-        height: 70rem;
+        height: 50%;
         width: 100%;
-        padding: 0 15rem;
-        @include border;
+        padding: 6rem 30rem;
     
-        &-feature--1{
-            @include border;
+        &-feature--1, &-feature--2, &-feature--3, &-feature--4{
             height: 100%;
-        }
-        &-feature--2{
-            @include border;
-            height: 100%;
-        }
-        &-feature--3{
-            @include border;
-            height: 100%;
+            padding: 1rem;
+            background-color: rgba($color-white, .8);
+            box-shadow: 0 1.5rem 4rem rgba($color-black, .15);
+            transition: transform .3s;
+
+            &:hover{
+                transform: scale(1.05) translateY(-1.5rem)
+            }
+
+            ion-icon{
+                margin-top: 6rem;;
+                font-size: 10rem;
+                color: purple;
+            }
+            
+            h3{
+                margin-top: 5rem;
+            }
+
+            .feature--support-text{
+                margin-top: 1rem;
+            }
         }
     }
 }

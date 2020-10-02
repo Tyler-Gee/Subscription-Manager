@@ -36,3 +36,7 @@
 */
     #{$property}: calc(#{$span} * ((100% - ((#{$num-of-col} - 1) * #{$gutter-horizontal})) / #{$num-of-col}) + ( (#{$span} - 1) * #{$gutter-horizontal}));
 }
+
+@mixin calc-col-width--no-gutter($property, $num-of-col, $span){
+    #{$property}: calc(#{$span} * (100% / #{$num-of-col}));
+}

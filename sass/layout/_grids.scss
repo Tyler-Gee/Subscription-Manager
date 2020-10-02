@@ -45,6 +45,44 @@
     .col-4-of-5{
         @include calc-col-width("width", 5, 4);
     }
+
+    [class*="no-gutter-col-"]{
+        float: left;
+    }
+
+    .no-gutter-col-1-of-1{
+        @include calc-col-width--no-gutter("width", 1, 1);
+    }
+    .no-gutter-col-1-of-2{
+        @include calc-col-width--no-gutter("width", 2, 1);
+    }
+    .no-gutter-col-1-of-3{
+        @include calc-col-width--no-gutter("width", 3, 1);   
+    }
+    .no-gutter-col-2-of-3{
+        @include calc-col-width--no-gutter("width", 3, 2);
+    }
+    .no-gutter-col-1-of-4{
+        @include calc-col-width--no-gutter("width", 4, 1);
+    }
+    .no-gutter-col-2-of-4{
+        @include calc-col-width--no-gutter("width", 4, 2);
+    }
+    .no-gutter-col-3-of-4{
+        @include calc-col-width--no-gutter("width", 4, 3);
+    }
+    .no-gutter-col-1-of-5{
+        @include calc-col-width--no-gutter("width", 5, 1);
+    }
+    .no-gutter-col-2-of-5{
+        @include calc-col-width--no-gutter("width", 5, 2);
+    }
+    .no-gutter-col-3-of-5{
+        @include calc-col-width--no-gutter("width", 5, 3);
+    }
+    .no-gutter-col-4-of-5{
+        @include calc-col-width--no-gutter("width", 5, 4);
+    }
 }
 
 /* 

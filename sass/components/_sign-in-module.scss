@@ -64,7 +64,7 @@
             background-color: transparent;
             font-size: 2rem;
 
-            &[name$="--email"]{
+            &[class$="--email"]{
                 margin-bottom: 3rem;
             }
         }

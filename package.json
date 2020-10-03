@@ -2,11 +2,12 @@
   "name": "subscription-manager",
   "version": "1.0.0",
   "description": "A subscription manager web-app",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "compile:scss": "node-sass sass/main.scss css/style.css",
-    "compile:scss--watch": "node-sass sass/*.scss css/style.css -w",
-    "start": "live-server"
+    "compile:scss": "node-sass sass/main.scss public/css/style.css",
+    "compile:scss--watch": "node-sass sass/*.scss public/css/style.css -w",
+    "start": "nodemon -e scss,css,html,js app.js 5000",
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,11 @@
     "live-server": "^1.2.1",
     "node-sass": "^4.14.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.0",
+    "fs": "0.0.1-security",
+    "javascript-obfuscator": "^2.4.3",
+    "nodemon": "^2.0.4"
+  }
 }

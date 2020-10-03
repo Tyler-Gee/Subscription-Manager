@@ -30,7 +30,7 @@
             border-radius: 3px;
             padding-left: 1rem;
 
-            &[name$="--email"]{
+            &[class$="--email"]{
                 margin-bottom: 3rem;
             }
         }

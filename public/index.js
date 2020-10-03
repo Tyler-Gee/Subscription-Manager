@@ -1,6 +1,5 @@
 docReady(function () {
-    var signInButton = document.getElementsByClassName("sign-in-module__btn");
-
+    /* var signInButton = document.getElementsByClassName("sign-in-module__btn");
     signInButton[0].addEventListener("click", function(e){
         e.preventDefault();
         var user_email = document.getElementsByClassName("sign-in-module__form--email")[0].value;
@@ -11,7 +10,6 @@ docReady(function () {
 		request.onload = function () {
 			if (this.status >= 200 && this.status < 400) {
                 var resp = this.response;
-                //console.log(`${resp}\nUsername: ${userName[0]}\nPassword: ${password[0]}`);
                 console.log(`${resp}`);
 			} else {
                 // We reached our target server, but it returned an error
@@ -19,6 +17,36 @@ docReady(function () {
 			}
 		};
 
+		request.onerror = function () {
+            // There was a connection error of some sort
+            console.log("Connection Error");
+		};
+        request.send();
+    }
+    ,false); */
+
+    var signInButton = document.getElementsByClassName("sign-in-module__btn");
+
+    signInButton[0].addEventListener("click", function(e){
+        e.preventDefault();
+
+        var user_email = document.getElementsByClassName("sign-in-module__form--email")[0].value;
+        var user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
+        
+        console.log(`Email: ${user_email}\nPassword: ${user_password}`);
+        console.log('Data Sent\n');
+
+        var request = new XMLHttpRequest();
+		request.open("GET", `/createUser/:${user_email}/:${user_password}`, true);
+
+		request.onload = function () {
+			if (this.status >= 200 && this.status < 400) {
+                var resp = this.response;
+                console.log(`${resp}`);
+			} else {
+                console.log("Error");
+			}
+		};
 		request.onerror = function () {
             // There was a connection error of some sort
             console.log("Connection Error");

@@ -6,8 +6,7 @@
   "scripts": {
     "compile:scss": "node-sass sass/main.scss public/css/style.css",
     "compile:scss--watch": "node-sass sass/*.scss public/css/style.css -w",
-    "start": "nodemon -e scss,css,html,js app.js 5000",
-    "dev": "nodemon app.js"
+    "dev": "nodemon -e scss,css,html,js app.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +27,7 @@
     "express-fileupload": "^1.2.0",
     "fs": "0.0.1-security",
     "javascript-obfuscator": "^2.4.3",
+    "mongoose": "^5.10.7",
     "nodemon": "^2.0.4"
   }
 }

@@ -1,22 +1,45 @@
 docReady(function () {
-
     document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", function(event){
         event.preventDefault();
 
-        //Gather user account information
+        //Gather account username
         let user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
-        let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
 
-        // Validate user account information
+        // Validate account username
         let usernameValidationErrors = verifyUsernameFormat__accountRegistry(user_username);
 
+        // If username is valid - check if username is unique
         if (usernameValidationErrors.length == 0) {
-			let request = new XMLHttpRequest();
-			request.open("GET", `/createUser/:${user_username}/:${user_password}`, true);
+            let request = new XMLHttpRequest();
+            request.open("GET", `/uniqueUsername/:${user_username}`, true);
+            
 			request.onload = function () {
 				if (this.status >= 200 && this.status < 400) {
-					let resp = this.response;
-					console.log(resp);
+                    // If response is true, then username is unique, go on to create user
+                    if (this.response == "username--unique") {
+                        console.log("username--unique");
+                        
+						let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
+
+						let request = new XMLHttpRequest();
+						request.open("GET", `/createUser/:${user_username}/:${user_password}`, true);
+
+						request.onload = function () {
+							if (this.status >= 200 && this.status < 400) {
+                                // success
+							} else {
+								console.log("Error onload");
+							}
+						};
+						request.onerror = function () {
+							// There was a connection error of some sort
+							console.log("Connection Error");
+						};
+						request.send();
+					} else if ("username--non-unique") {
+						// if response is anything but true
+						console.log("username--non-unique");
+					}
 				} else {
 					console.log("Error onload");
 				}
@@ -27,23 +50,13 @@ docReady(function () {
 			};
 			request.send();
 		} else {
-            
+            usernameValidationErrors.forEach(function (errorCode){
+                console.log(errorCode);
+            });
 		}
 
     }
     ,false);
-
-
-
-
-
-
-
-
-
-
-
-
 });
 
 
@@ -116,7 +129,6 @@ function verifyUsernameFormat__accountRegistry(str) {
         "INV_WHITESPACE",
         "INV_CHARACTER",
     ];
-    console.log(str);
     var errorResults = new Array();
 
     // Check for valid length
@@ -133,4 +145,52 @@ function verifyUsernameFormat__accountRegistry(str) {
     }
 
     return errorResults;
+}
+
+
+
+function HTTP_ROUTE__checkUniqueUsername(username_str) {
+	var test;
+	var request = new XMLHttpRequest();
+	request.open("GET", `/uniqueUsername/:${username_str}`, true);
+
+	request.onload = function () {
+		if (this.status >= 200 && this.status < 400) {
+			// Success!
+			if (this.response == "username--unique") {
+				return "true";
+			} else {
+				return "false";
+			}
+		} else {
+			// We reached our target server, but it returned an error
+			console.log(
+				"The connection to subscription-manager database was completed, an answer to if the username is unique was not give -- Internal Error"
+			);
+		}
+	};
+
+	request.onerror = function () {
+		// There was a connection error of some sort
+	};
+
+	request.send();
+}
+
+function HTTP_REQUEST__createNewUser(username_str, password_str) {
+	let request = new XMLHttpRequest();
+	request.open("GET", `/createUser/:${username_str}/:${password_str}`, true);
+
+	request.onload = function () {
+		if (this.status >= 200 && this.status < 400) {
+			// success
+		} else {
+			console.log("Error onload");
+		}
+	};
+	request.onerror = function () {
+		// There was a connection error of some sort
+		console.log("Connection Error");
+	};
+	request.send();
 }

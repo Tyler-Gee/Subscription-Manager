@@ -1,4 +1,5 @@
 // Express App (Routes)
+// https://mongoosejs.com/docs/api.html
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -95,12 +96,25 @@ app.get("/users", function (req, res) {
 	});
 });
 
+app.get("/uniqueUsername/:username", function(req, res) {
+    userAccountCredentials.findOne({ username: req.params.username.substring(1) }, function (err, obj) {
+        if(obj == null){
+            console.log("Express Route -------> unique");
+        }
+        else{
+            console.log("Express Route -------> non-unique");
+        }
+        
+        obj == null ? res.send("username--unique") : res.send("username--non-unique");
+    });
+});
+
 app.get("/createUser/:username/:password", function (req, res) {
-	const test = new userAccountCredentials({
+	let newUser = new userAccountCredentials({
 		username: req.params.username.substring(1),
 		password: req.params.password.substring(1),
 	});
-	test.save(function (err) {
+	newUser.save(function (err) {
 		if (err) return handleError(err);
 		// saved!
 	});

@@ -821,7 +821,7 @@ Full width
       border: .15rem solid grey;
       border-radius: 3px;
       padding-left: 1rem; }
-      .sign-in-module__form input[class$="--email"] {
+      .sign-in-module__form input[class$="--username"] {
         margin-bottom: 3rem; }
   .sign-in-module__user-agreement-text {
     margin-top: 3.8rem;

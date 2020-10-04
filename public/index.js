@@ -1,34 +1,49 @@
 docReady(function () {
 
-    var signInButton = document.getElementsByClassName("sign-in-module__btn");
+    document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", function(event){
+        event.preventDefault();
 
-    signInButton[0].addEventListener("click", function(e){
-        e.preventDefault();
+        //Gather user account information
+        let user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
+        let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
 
-        var user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
-        var user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
+        // Validate user account information
+        let usernameValidationErrors = verifyUsernameFormat__accountRegistry(user_username);
 
-        var verifyResults = verifyUsernameFormat__accountRegistry(user_username);
-        console.log(verifyResults);
-        
-        var request = new XMLHttpRequest();
-		request.open("GET", `/createUser/:${user_username}/:${user_password}`, true);
+        if (usernameValidationErrors.length == 0) {
+			let request = new XMLHttpRequest();
+			request.open("GET", `/createUser/:${user_username}/:${user_password}`, true);
+			request.onload = function () {
+				if (this.status >= 200 && this.status < 400) {
+					let resp = this.response;
+					console.log(resp);
+				} else {
+					console.log("Error onload");
+				}
+			};
+			request.onerror = function () {
+				// There was a connection error of some sort
+				console.log("Connection Error");
+			};
+			request.send();
+		} else {
+            
+		}
 
-		request.onload = function () {
-			if (this.status >= 200 && this.status < 400) {
-                var resp = this.response;
-                console.log(`${resp}`);
-			} else {
-                console.log("Error");
-			}
-		};
-		request.onerror = function () {
-            // There was a connection error of some sort
-            console.log("Connection Error");
-		};
-        request.send();
     }
     ,false);
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 
@@ -42,35 +57,80 @@ function docReady(fn) {
     }
 }    
 
-function verifyUsernameFormat__accountRegistry(username) {
-	//(username.match(/[|\\/~^:,;?!&%$@*+]/))
-	/* Username Rules:
-    - length 1-16
-    - Characters: 0 - 9, a - z, A - z
-    - No special characters, symbols or spaces
-*/
+function isAlphaNumeric(str) {
+    for(var i = 0; i < str.length; i++){
+        charCode = str.charCodeAt(i);
+        if( !(charCode >= 48 && charCode <= 57) &&  // 0-9
+            !(charCode >= 65 && charCode <= 90) &&  // A-Z
+            !(charCode >= 97 && charCode <= 122)){  // a-z 
+            return false;    
+        }
+    }
+    return true;
+}
 
-	if (/\s/.test(username)) {
-		return "error";
-	}
-	if (/[^a-zA-Z0-9]/.test(username)) {
-		return "symbol";
-	}
-
-	function isAlphaNumeric(str) {
-		var code, i, len;
-
-		for (i = 0, len = str.length; i < len; i++) {
-			code = str.charCodeAt(i);
-			if (
-				!(code > 47 && code < 58) && // numeric (0-9)
-				!(code > 64 && code < 91) && // upper alpha (A-Z)
-				!(code > 96 && code < 123)
-			) {
-				// lower alpha (a-z)
-				return false;
-			}
+function containsWhitespace(str){
+    for (var i = 0; i < str.length; i++) {
+		charCode = str.charCodeAt(i);
+		if (
+            (charCode >= 9 && charCode <= 13) ||
+            (charCode == 32) || (charCode == 133)  ||
+            (charCode == 160)  ||
+            (charCode == 5760)  ||
+            (charCode >= 8192 && charCode <= 8202)  ||
+            (charCode >= 8232 && charCode <= 8233)  ||
+            (charCode == 8239)  ||
+            (charCode >= 8287 && charCode <= 8288)){
+			return true;
 		}
-		return true;
 	}
+	return false;
+}
+
+function containsSpecialCharacter(str){
+    for (var i = 0; i < str.length; i++) {
+		charCode = str.charCodeAt(i);
+		if (
+            !(charCode >= 9 && charCode <= 13) &&
+            !(charCode == 32) &&
+            !(charCode == 133)  &&
+            !(charCode == 160)  &&
+            !(charCode == 5760)  &&
+            !(charCode >= 8192 && charCode <= 8202)  &&
+            !(charCode >= 8232 && charCode <= 8233)  &&
+            !(charCode == 8239)  &&
+            !(charCode >= 8287 && charCode <= 8288) &&       
+            !(charCode >= 48 && charCode <= 57) &&
+            !(charCode >= 65 && charCode <= 90) &&
+            !(charCode >= 97 && charCode <= 122)){
+			return true;
+		}
+	}
+	return false;
+}
+
+function verifyUsernameFormat__accountRegistry(str) {
+    const errorCode = [
+        "INV_EMPTY",
+        "INV_LENGTH",
+        "INV_WHITESPACE",
+        "INV_CHARACTER",
+    ];
+    console.log(str);
+    var errorResults = new Array();
+
+    // Check for valid length
+    if(str.length == 0 || str.length > 16){
+        str.length == 0 ? errorResults.push(errorCode[0]) : errorResults.push(errorCode[1]);
+    }
+    // Check for any whitespace
+    if(containsWhitespace(str)){
+        errorResults.push(errorCode[2]);
+    }
+    //check for any special characters
+    if(containsSpecialCharacter(str)){
+        errorResults.push(errorCode[3]);
+    }
+
+    return errorResults;
 }

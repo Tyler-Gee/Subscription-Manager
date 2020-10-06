@@ -99,13 +99,12 @@ app.get("/users", function (req, res) {
 app.get("/uniqueUsername/:username", function(req, res) {
     userAccountCredentials.findOne({ username: req.params.username.substring(1) }, function (err, obj) {
         if(obj == null){
-            console.log("Express Route -------> unique");
+            console.log("Express: true");
         }
         else{
-            console.log("Express Route -------> non-unique");
+            console.log("Express: false\n");
         }
-        
-        obj == null ? res.send("username--unique") : res.send("username--non-unique");
+        obj == null ? res.send("true") : res.send("false");
     });
 });
 

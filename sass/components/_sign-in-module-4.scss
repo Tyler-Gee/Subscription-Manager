@@ -39,7 +39,7 @@
     }
 
     &__user-agreement-text{
-        margin-top: 3.8rem;
+        margin-top: 3rem;
         font-size: 1.4rem;
         color: white;
     }
@@ -51,22 +51,47 @@
         font-size: 3rem;
         padding: 2.5rem 0;
         border-radius: 0 3px;
+    }
 
-        &--password-recover{
-            margin: .5rem 13% 0 0;
+    &__option-btn-box{
+        position: relative;
+        width: 60%;
+        height: 6.5rem;
+        margin: 0 auto;
+
+        .sign-in-module__btn--password-recover{
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: .5rem 0;
             font-size: 1.4rem;
             color: white;
         }
-        &--sign-up-small{
-            margin: .5rem 0 0 13%;
+        .sign-in-module__btn--sign-up-small{
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: .5rem 0;
             font-size: 1.4rem;
             color: white;
+        }
+        .sign-in-module__checkbox{
+            position: absolute;
+            bottom: 0;
+            text-align: left;
+            width: 50%;
+            
+            &--label{
+                font-family: "Lato";
+                font-size: 1.4rem;
+                color: white;
+                margin-left: 1rem;
+            }
         }
     }
 
     &__sign-in-option-text{
-        position: relative;
-        top: 35rem;
+        margin-top: 1rem;
         font-size: 1.6rem;
         color: white;
     }

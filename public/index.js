@@ -4,6 +4,62 @@ docReady(function () {
 
         //Gather account username
         let user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
+        let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
+
+        createNewUser(`/uniqueUsername/:${user_username}`, `/createUser/:${user_username}/:${user_password}`);
+
+        /* let fetchPromise = new Promise((resolve, reject) => {
+			fetch(`/uniqueUsername/:${user_username}`, {
+				method: "GET",
+			})
+				.then((response) => response.text())
+				.then((data) => {
+					if (data == "true") {
+						resolve("username is unique");
+					} else if (data == "false") {
+						reject("Username is already in use");
+					}
+				});
+        });
+        
+        fetchPromise.then((message) =>{
+            console.log(message);
+            console.log("User is being created");
+            fetch(`/createUser/:${user_username}/:${user_password}`, {
+				method: "GET",
+			})
+				.then((response) => response.text())
+				.then((data) => {
+					console.log(data);
+				});
+        }).catch((message) => {
+            console.log(message);
+        }); */
+
+        /* // Validate account username
+        let usernameValidationErrors = verifyUsernameFormat__accountRegistry(user_username);
+        //let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
+
+        // If username is valid - check if username is unique
+        if (usernameValidationErrors.length == 0) {
+            var test = HTTP_ROUTE__checkUniqueUsername(user_username);
+            console.log("This is the answer from the server through fetch\n" + test);
+        }
+        else{
+            usernameValidationErrors.forEach(function (errorCode){
+                console.log(errorCode);
+            });
+        }
+ */
+
+        
+        
+
+
+
+
+        /* //Gather account username
+        let user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
 
         // Validate account username
         let usernameValidationErrors = verifyUsernameFormat__accountRegistry(user_username);
@@ -54,7 +110,7 @@ docReady(function () {
                 console.log(errorCode);
             });
 		}
-
+        */
     }
     ,false);
 });
@@ -122,7 +178,7 @@ function containsSpecialCharacter(str){
 	return false;
 }
 
-function verifyUsernameFormat__accountRegistry(str) {
+function verifyUsernameFormat__accountRegistry(username_str) {
     const errorCode = [
         "INV_EMPTY",
         "INV_LENGTH",
@@ -132,65 +188,115 @@ function verifyUsernameFormat__accountRegistry(str) {
     var errorResults = new Array();
 
     // Check for valid length
-    if(str.length == 0 || str.length > 16){
-        str.length == 0 ? errorResults.push(errorCode[0]) : errorResults.push(errorCode[1]);
+    if(username_str.length == 0 || username_str.length > 16){
+        username_str.length == 0 ? errorResults.push(errorCode[0]) : errorResults.push(errorCode[1]);
     }
     // Check for any whitespace
-    if(containsWhitespace(str)){
+    if(containsWhitespace(username_str)){
         errorResults.push(errorCode[2]);
     }
     //check for any special characters
-    if(containsSpecialCharacter(str)){
+    if(containsSpecialCharacter(username_str)){
         errorResults.push(errorCode[3]);
     }
 
     return errorResults;
 }
 
-
-
-function HTTP_ROUTE__checkUniqueUsername(username_str) {
-	var test;
-	var request = new XMLHttpRequest();
-	request.open("GET", `/uniqueUsername/:${username_str}`, true);
-
-	request.onload = function () {
-		if (this.status >= 200 && this.status < 400) {
-			// Success!
-			if (this.response == "username--unique") {
-				return "true";
-			} else {
-				return "false";
+function HTTP_ROUTE__returnFetchAsPromise(path) {
+	return new Promise((resolve, reject) => {
+		fetch(path).then(
+			(response) => {
+				var result = response.text();
+				resolve(result);
+			},
+			(error) => {
+				reject(error);
 			}
-		} else {
-			// We reached our target server, but it returned an error
-			console.log(
-				"The connection to subscription-manager database was completed, an answer to if the username is unique was not give -- Internal Error"
-			);
-		}
-	};
-
-	request.onerror = function () {
-		// There was a connection error of some sort
-	};
-
-	request.send();
+		);
+	});
 }
 
-function HTTP_REQUEST__createNewUser(username_str, password_str) {
-	let request = new XMLHttpRequest();
-	request.open("GET", `/createUser/:${username_str}/:${password_str}`, true);
-
-	request.onload = function () {
-		if (this.status >= 200 && this.status < 400) {
-			// success
-		} else {
-			console.log("Error onload");
-		}
-	};
-	request.onerror = function () {
-		// There was a connection error of some sort
-		console.log("Connection Error");
-	};
-	request.send();
+async function HTTP_REQUEST__fetchAsync(path) {
+    try{
+        //const response = await fetch(path)
+        console.log(await (await fetch(path)).text());
+    }
+    catch(err) {
+        console.error("fetch failed", err);
+    }
 }
+
+async function createNewUser(pathOne, pathTwo) {
+	var result = await HTTP_ROUTE__returnFetchAsPromise(pathOne);
+	if (result == "true") {
+        await HTTP_REQUEST__fetchAsync(pathTwo);
+	} else {
+		console.log("Username is already in use.");
+	}
+}
+
+/* 
+
+https://www.geeksforgeeks.org/how-to-make-javascript-wait-for-a-api-request-to-return/
+https://medium.com/@armando_amador/how-to-make-http-requests-using-fetch-api-and-promises-b0ca7370a444
+https://developers.google.com/web/fundamentals/primers/async-functions#top_of_page
+function HTTP_ROUTE__fetchBasic(path){
+    fetch(path).then(function (response) {
+		if (response.ok) {
+            console.log(response.text());
+			return response.text();
+		} else {
+			var error = new Error(response.statusText);
+			error.response = response;
+			throw error;
+		}
+	});
+} 
+function HTTP_REQUEST__fetchBasicTwo(path){
+    return fetch(path)
+		.then((response) => response.text())
+		.then((text) => {
+			console.log(text);
+        }).catch(err => {
+            console.error('fetch failed', err);
+        });
+}
+function HTTP_ROUTE__fetchPromise(path) {
+	return new Promise((resolve, reject) => {
+		fetch(path).then(
+			(response) => {
+				resolve(response.text());
+			},
+			(error) => {
+				reject(error);
+			}
+		);
+	});
+}
+async function HTTP_ROUTE__fetchAsync(path) {
+    try {
+		const response = await fetch(path);
+		console.log(await response.text());
+	} catch (err) {
+		console.error("fetch failed", err);
+	}
+}
+
+function javascript_promise(){
+    let prom = new Promise((resolve, reject) => {
+        let a = 1 + 2;
+        if(a == 3){
+            resolve("true")
+        }
+        else{
+            reject("false");
+        }
+    });
+    prom.then((message) => {
+        console.log("This is correct");
+    }).catch((message) => {
+        console.log("This is incorrect");
+    });
+}
+*/ 

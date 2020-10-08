@@ -98,12 +98,7 @@ app.get("/users", function (req, res) {
 
 app.get("/uniqueUsername/:username", function(req, res) {
     userAccountCredentials.findOne({ username: req.params.username.substring(1) }, function (err, obj) {
-        if(obj == null){
-            console.log("Express: true");
-        }
-        else{
-            console.log("Express: false\n");
-        }
+        obj == null ? console.log("unique username") : console.log("not unique username");
         obj == null ? res.send("true") : res.send("false");
     });
 });
@@ -112,12 +107,13 @@ app.get("/createUser/:username/:password", function (req, res) {
 	let newUser = new userAccountCredentials({
 		username: req.params.username.substring(1),
 		password: req.params.password.substring(1),
-	});
+    });
+    
 	newUser.save(function (err) {
 		if (err) return handleError(err);
-		// saved!
-	});
-	res.send(`Username: ${req.params.username.substring(1)}\nPassword: ${req.params.password.substring(1)}`);
+    });
+    
+    res.send(`Username: ${req.params.username.substring(1)}\nPassword: ${req.params.password.substring(1)}\n`);
 });
 
 

@@ -1,118 +1,42 @@
 docReady(function () {
-    document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", function(event){
+	document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", (event) => {
         event.preventDefault();
 
-        //Gather account username
-        let user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
+        
+        var user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
         let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
-
-        createNewUser(`/uniqueUsername/:${user_username}`, `/createUser/:${user_username}/:${user_password}`);
-
-        /* let fetchPromise = new Promise((resolve, reject) => {
-			fetch(`/uniqueUsername/:${user_username}`, {
-				method: "GET",
-			})
-				.then((response) => response.text())
-				.then((data) => {
-					if (data == "true") {
-						resolve("username is unique");
-					} else if (data == "false") {
-						reject("Username is already in use");
-					}
-				});
-        });
+        var usernameValidationErrors = verifyUsernameFormat(user_username);
         
-        fetchPromise.then((message) =>{
-            console.log(message);
-            console.log("User is being created");
-            fetch(`/createUser/:${user_username}/:${user_password}`, {
-				method: "GET",
-			})
-				.then((response) => response.text())
-				.then((data) => {
-					console.log(data);
-				});
-        }).catch((message) => {
-            console.log(message);
-        }); */
-
-        /* // Validate account username
-        let usernameValidationErrors = verifyUsernameFormat__accountRegistry(user_username);
-        //let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
-
-        // If username is valid - check if username is unique
         if (usernameValidationErrors.length == 0) {
-            var test = HTTP_ROUTE__checkUniqueUsername(user_username);
-            console.log("This is the answer from the server through fetch\n" + test);
-        }
-        else{
-            usernameValidationErrors.forEach(function (errorCode){
+            const createAccountPromise = createNewUser(
+                `/uniqueUsername/:${user_username}`,
+                `/createUser/:${user_username}/:${user_password}`
+            );
+
+            createAccountPromise.then((response) => {
+                if(document.getElementsByClassName("sign-in-module__checkbox--checkbox")[0].checked == true){
+                    document.cookie = `username=${user_username}`;
+                    document.cookie = `password=${user_password}`;
+                }
+            })
+            .catch((error) => {
+                console.log(`Status: ${error}`);
+            });
+
+
+        } else {
+            // if not valid username
+            usernameValidationErrors.forEach((errorCode) => {
                 console.log(errorCode);
             });
         }
- */
+    },false);
 
+	document.getElementsByClassName("btn sign-in-module__btn--password-recover")[0].addEventListener("click",(event) => {
+        event.preventDefault();    
+        //document.cookie = "password=; expires=Thu, 01 Jan 1971 00:00:00 UTC; path=/;";
         
-        
-
-
-
-
-        /* //Gather account username
-        let user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
-
-        // Validate account username
-        let usernameValidationErrors = verifyUsernameFormat__accountRegistry(user_username);
-
-        // If username is valid - check if username is unique
-        if (usernameValidationErrors.length == 0) {
-            let request = new XMLHttpRequest();
-            request.open("GET", `/uniqueUsername/:${user_username}`, true);
-            
-			request.onload = function () {
-				if (this.status >= 200 && this.status < 400) {
-                    // If response is true, then username is unique, go on to create user
-                    if (this.response == "username--unique") {
-                        console.log("username--unique");
-                        
-						let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
-
-						let request = new XMLHttpRequest();
-						request.open("GET", `/createUser/:${user_username}/:${user_password}`, true);
-
-						request.onload = function () {
-							if (this.status >= 200 && this.status < 400) {
-                                // success
-							} else {
-								console.log("Error onload");
-							}
-						};
-						request.onerror = function () {
-							// There was a connection error of some sort
-							console.log("Connection Error");
-						};
-						request.send();
-					} else if ("username--non-unique") {
-						// if response is anything but true
-						console.log("username--non-unique");
-					}
-				} else {
-					console.log("Error onload");
-				}
-			};
-			request.onerror = function () {
-				// There was a connection error of some sort
-				console.log("Connection Error");
-			};
-			request.send();
-		} else {
-            usernameValidationErrors.forEach(function (errorCode){
-                console.log(errorCode);
-            });
-		}
-        */
-    }
-    ,false);
+    },false);
 });
 
 
@@ -178,7 +102,7 @@ function containsSpecialCharacter(str){
 	return false;
 }
 
-function verifyUsernameFormat__accountRegistry(username_str) {
+function verifyUsernameFormat(str) {
     const errorCode = [
         "INV_EMPTY",
         "INV_LENGTH",
@@ -188,15 +112,15 @@ function verifyUsernameFormat__accountRegistry(username_str) {
     var errorResults = new Array();
 
     // Check for valid length
-    if(username_str.length == 0 || username_str.length > 16){
-        username_str.length == 0 ? errorResults.push(errorCode[0]) : errorResults.push(errorCode[1]);
+    if(str.length == 0 || str.length > 16){
+        str.length == 0 ? errorResults.push(errorCode[0]) : errorResults.push(errorCode[1]);
     }
     // Check for any whitespace
-    if(containsWhitespace(username_str)){
+    if(containsWhitespace(str)){
         errorResults.push(errorCode[2]);
     }
     //check for any special characters
-    if(containsSpecialCharacter(username_str)){
+    if(containsSpecialCharacter(str)){
         errorResults.push(errorCode[3]);
     }
 
@@ -207,8 +131,7 @@ function HTTP_ROUTE__returnFetchAsPromise(path) {
 	return new Promise((resolve, reject) => {
 		fetch(path).then(
 			(response) => {
-				var result = response.text();
-				resolve(result);
+				resolve(response.text());
 			},
 			(error) => {
 				reject(error);
@@ -219,8 +142,8 @@ function HTTP_ROUTE__returnFetchAsPromise(path) {
 
 async function HTTP_REQUEST__fetchAsync(path) {
     try{
-        //const response = await fetch(path)
-        console.log(await (await fetch(path)).text());
+        const response = await fetch(path)
+        console.log(await response.text());
     }
     catch(err) {
         console.error("fetch failed", err);
@@ -228,13 +151,29 @@ async function HTTP_REQUEST__fetchAsync(path) {
 }
 
 async function createNewUser(pathOne, pathTwo) {
-	var result = await HTTP_ROUTE__returnFetchAsPromise(pathOne);
-	if (result == "true") {
-        await HTTP_REQUEST__fetchAsync(pathTwo);
+    var uniqueUsernameResults = await HTTP_ROUTE__returnFetchAsPromise(pathOne);
+	if (uniqueUsernameResults == "true") {
+        await HTTP_REQUEST__fetchAsync(pathTwo);;
+        console.log("Account created");
+        return "success";
 	} else {
-		console.log("Username is already in use.");
+        console.log("Username is already in use.");
+        return "failure";
 	}
 }
+
+function createCookie(name, value, expireDayCount){
+    var currentDate = new Date();
+    currentDate.setTime(currentDate.getTime + (expireDayCount*1000*60*60*24));
+    var expires = "expires=" + currentDate.toUTCString();
+    document.cookie = `${name}=${value};${expires};path=/`;
+}
+
+function getCookie(name){
+
+}
+
+
 
 /* 
 

@@ -27,14 +27,14 @@ app.get("/style.css", function (req, res) {
     res.sendFile(path.join(__dirname + "/public/css/style.css"));
 });
 
-// Send obfuscated JS, do not change
+//Send obfuscated JS, do not change
 app.get("/index.js", function(req, res) {
 	fs.readFile(path.join(__dirname + "/public/index.js"), "utf8", function(err, contents) {
 		const minimizedContents = JavaScriptObfuscator.obfuscate(contents, { compact: true, controlFlowFlattening: true });
 		res.contentType("application/javascript");
 		res.send(minimizedContents._obfuscatedCode);
 	});
-});
+}); 
 
 app.use('/img', express.static(__dirname + '/public/img'));
 
@@ -98,8 +98,14 @@ app.get("/users", function (req, res) {
 
 app.get("/uniqueUsername/:username", function(req, res) {
     userAccountCredentials.findOne({ username: req.params.username.substring(1) }, function (err, obj) {
-        obj == null ? console.log("unique username") : console.log("not unique username");
-        obj == null ? res.send("true") : res.send("false");
+        obj == null ? res.send("username--nonexistent") : res.send("username--exists");
+    });
+});
+
+app.get("/verifyCredentials/:username/:password", (req, res) => {
+    //let credentials = `username: ${req.params.username.substring(1)}, password: ${req.params.password.substring(1)}`;
+    userAccountCredentials.findOne({username: req.params.username.substring(1), password: req.params.password.substring(1)}, (err, obj) => {
+        obj != null ? res.send("credentials--correct") : res.send("credentials--incorrect");
     });
 });
 
@@ -107,16 +113,14 @@ app.get("/createUser/:username/:password", function (req, res) {
 	let newUser = new userAccountCredentials({
 		username: req.params.username.substring(1),
 		password: req.params.password.substring(1),
-    });
-    
+	});
+
 	newUser.save(function (err) {
 		if (err) return handleError(err);
-    });
-    
-    res.send(`Username: ${req.params.username.substring(1)}\nPassword: ${req.params.password.substring(1)}\n`);
+	});
+
+	res.send(`Username: ${req.params.username.substring(1)}\nPassword: ${req.params.password.substring(1)}\n`);
 });
-
-
 
 
 

@@ -1,5 +1,43 @@
 docReady(function () {
-	document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", (event) => {
+    isUsernameCookie = getCookie("username");
+    isPasswordCookie = getCookie("password");
+    if(isUsernameCookie && isPasswordCookie){
+        signIn(isUsernameCookie, isPasswordCookie);
+    }
+
+    document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", (event) => {
+        event.preventDefault();
+
+        // Gather user data
+        var user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
+        let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
+        
+        // verify username: no special characters can get through to the database for security reasons
+        const acceptFormat = verifyUsernameFormat(user_username);
+
+        if(acceptFormat.length == 0){
+            signIn(user_username, user_password);
+        }
+        else{
+            console.log("username is not in a valid format");
+            acceptFormat.forEach((errorCode) => {
+				console.log(errorCode);
+			});
+        }
+
+    },false);
+
+	document.getElementsByClassName("btn sign-in-module__btn--password-recover")[0].addEventListener("click",(event) => {
+        event.preventDefault();    
+        //document.cookie = "password=; expires=Thu, 01 Jan 1971 00:00:00 UTC; path=/;";
+        alert(document.cookie);
+    },false);
+});
+
+//this is just a test of creating a user
+function createaccountexample(){
+    return "hello";
+    /* document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", (event) => {
         event.preventDefault();
 
         
@@ -30,14 +68,8 @@ docReady(function () {
                 console.log(errorCode);
             });
         }
-    },false);
-
-	document.getElementsByClassName("btn sign-in-module__btn--password-recover")[0].addEventListener("click",(event) => {
-        event.preventDefault();    
-        //document.cookie = "password=; expires=Thu, 01 Jan 1971 00:00:00 UTC; path=/;";
-        
-    },false);
-});
+    },false); */
+}
 
 
 function docReady(fn) {
@@ -152,7 +184,7 @@ async function HTTP_REQUEST__fetchAsync(path) {
 
 async function createNewUser(pathOne, pathTwo) {
     var uniqueUsernameResults = await HTTP_ROUTE__returnFetchAsPromise(pathOne);
-	if (uniqueUsernameResults == "true") {
+	if (uniqueUsernameResults == "username--nonexistent") {
         await HTTP_REQUEST__fetchAsync(pathTwo);;
         console.log("Account created");
         return "success";
@@ -162,17 +194,50 @@ async function createNewUser(pathOne, pathTwo) {
 	}
 }
 
-function createCookie(name, value, expireDayCount){
-    var currentDate = new Date();
-    currentDate.setTime(currentDate.getTime + (expireDayCount*1000*60*60*24));
-    var expires = "expires=" + currentDate.toUTCString();
-    document.cookie = `${name}=${value};${expires};path=/`;
+async function signIn(username_str, password_str) {
+	//check if username exists in the system
+	const usernameExists = await HTTP_ROUTE__returnFetchAsPromise(`/uniqueUsername/:${username_str}`);
+	if (usernameExists == "username--exists") {
+		const credentialsCorrect = await HTTP_ROUTE__returnFetchAsPromise(
+			`/verifyCredentials/:${username_str}/:${password_str}`
+		);
+		if (credentialsCorrect == "credentials--correct") {
+			// if http request is successfull, check if a valid user and password was found on the database
+            console.log(credentialsCorrect);
+            var usernameCookie = getCookie("username");
+            var passwordCookie = getCookie("password");
+
+            // if no cookie for the user was found, create one
+            if (usernameCookie == null || passwordCookie == null) {
+                createCookie("username", username_str, 1000);
+                createCookie("password", password_str, 1000);
+            }
+        }
+        else {
+			// let the user know that they have entered a wrong username or password
+			console.log("Password entered is incorrect");
+		}
+    } 
+    else {
+		console.log("username does not exists");
+	}
 }
 
-function getCookie(name){
-
+function getCookie(cname) {
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(";");
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == " ") {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
 }
-
 
 
 /* 
@@ -238,4 +303,47 @@ function javascript_promise(){
         console.log("This is incorrect");
     });
 }
+
+
+
+//check if username exists in the system
+            const usernameExists = HTTP_ROUTE__returnFetchAsPromise(`/uniqueUsername/:${user_username}`);
+
+            usernameExists.then((response) => {
+                if(response == "username--exists"){
+                    // check if username and password are correct
+                    const accountExists = HTTP_ROUTE__returnFetchAsPromise(
+                        `/verifyCredentials/:${user_username}/:${user_password}`
+                    );
+
+                    accountExists.then((response) => {
+                        // if http request is successfull, check if a valid user and password was found on the database
+                        if (response == "credentials--correct") {
+                            var usernameCookie = getCookie("username");
+                            var passwordCookie = getCookie("password");
+
+                            // if no cookie for the user was found, create one
+                            if (usernameCookie == null || passwordCookie == null) {
+                                createCookie("username", user_username, 1000);
+                                createCookie("password", user_password, 1000);
+                            }
+
+                        } else {
+                            // let the user know that they have entered a wrong username or password
+                            console.log("Password entered is incorrect");
+                        }
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        console.log("There was an error in trying to verify your user account information");
+                    });
+                    
+                }
+                else {
+                    console.log("username does not exists");
+                }
+			}).catch((error) => {
+                console.log("there was an error when trying to determine if the username entered is in the database");
+			});
 */ 

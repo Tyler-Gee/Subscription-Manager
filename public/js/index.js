@@ -1,8 +1,8 @@
 docReady(function () {
-    isUsernameCookie = getCookie("username");
-    isPasswordCookie = getCookie("password");
-    if(isUsernameCookie && isPasswordCookie){
-        signIn(isUsernameCookie, isPasswordCookie);
+    var usernameCookie = getCookie("username");
+    var passwordCookie = getCookie("password");
+    if(usernameCookie && passwordCookie){
+        signIn(usernameCookie, passwordCookie);
     }
 
     document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", (event) => {
@@ -16,7 +16,22 @@ docReady(function () {
         const acceptFormat = verifyUsernameFormat(user_username);
 
         if(acceptFormat.length == 0){
-            signIn(user_username, user_password);
+            let signInProm = signIn(user_username, user_password);
+            signInProm.then((response) => {
+                if(response == "sign-in--success"){
+                    if(document.getElementsByClassName("sign-in-module__checkbox--checkbox")[0].checked == true){
+                        console.log("hello");
+                        usernameCookie = getCookie("username");
+                        passwordCookie = getCookie("password");
+                        console.log(usernameCookie.length);
+
+                        if(usernameCookie.length == 0 && passwordCookie.length == 0){
+                            createCookie("username", user_username, 1000);
+                            createCookie("password", user_password, 1000);
+                        }
+                    }
+                }
+            }).catch((error) => {/*Throw Error Code*/});
         }
         else{
             console.log("username is not in a valid format");
@@ -196,30 +211,25 @@ async function createNewUser(pathOne, pathTwo) {
 
 async function signIn(username_str, password_str) {
 	//check if username exists in the system
-	const usernameExists = await HTTP_ROUTE__returnFetchAsPromise(`/uniqueUsername/:${username_str}`);
+    const usernameExists = await HTTP_ROUTE__returnFetchAsPromise(`/uniqueUsername/:${username_str}`);
 	if (usernameExists == "username--exists") {
 		const credentialsCorrect = await HTTP_ROUTE__returnFetchAsPromise(
 			`/verifyCredentials/:${username_str}/:${password_str}`
 		);
 		if (credentialsCorrect == "credentials--correct") {
-			// if http request is successfull, check if a valid user and password was found on the database
+			// if http request is successful, check if a valid user and password was found on the database
             console.log(credentialsCorrect);
-            var usernameCookie = getCookie("username");
-            var passwordCookie = getCookie("password");
-
-            // if no cookie for the user was found, create one
-            if (usernameCookie == null || passwordCookie == null) {
-                createCookie("username", username_str, 1000);
-                createCookie("password", password_str, 1000);
-            }
+            return "sign-in--success";
         }
         else {
 			// let the user know that they have entered a wrong username or password
-			console.log("Password entered is incorrect");
+            console.log("Password entered is incorrect");
+            return "sign-in--failure-incorrect-password";
 		}
     } 
     else {
-		console.log("username does not exists");
+        console.log("username does not exists");
+        return "sign-in--failure-nonexistent-account";
 	}
 }
 
@@ -237,6 +247,13 @@ function getCookie(cname) {
 		}
 	}
 	return "";
+}
+
+function createCookie(name, value, expireDayCount){
+    var currentDate = new Date();
+    currentDate.setTime(currentDate.getTime + (expireDayCount*1000*60*60*24));
+    var expires = "expires=" + currentDate.toUTCString();
+    document.cookie = `${name}=${value};${expires};path=/`;
 }
 
 

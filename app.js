@@ -1,40 +1,37 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const fs = require("fs");
+const JavaScriptObfuscator = require("javascript-obfuscator");
 const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 app.use(fileUpload());
 
-// Minimization
-const fs = require("fs");
-const JavaScriptObfuscator = require("javascript-obfuscator");
-
-// Important, pass in port as in `npm run dev 1234`, do not change
-const portNum = process.argv[2];
+app.use("/static", express.static(path.resolve(__dirname, "public", "static")));
+app.use('/img', express.static(path.resolve(__dirname, "public", "img")));
 
 // Send HTML at root, do not change
-app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname + "/public/html/index.html"));
+app.get("/*", function (req, res) {
+    res.sendFile(path.resolve(__dirname, "public", "static/html/index.html"));
 });
 
-// Send Style, do not change
+/* // Send Style, do not change
 app.get("/style.css", function (req, res) {
     //Feel free to change the contents of style.css to prettify your Web app
-    res.sendFile(path.join(__dirname + "/public/css/style.css"));
+    res.sendFile(path.resolve(__dirname, "public", "style.css"));
 });
 
 //Send obfuscated JS, do not change
 app.get("/index.js", function(req, res) {
-	fs.readFile(path.join(__dirname + "/public/js/index.js"), "utf8", function(err, contents) {
+	fs.readFile(path.resolve(__dirname, "public", "index.js"), "utf8", function(err, contents) {
 		const minimizedContents = JavaScriptObfuscator.obfuscate(contents, { compact: true, controlFlowFlattening: true });
 		res.contentType("application/javascript");
 		res.send(minimizedContents._obfuscatedCode);
 	});
-}); 
+});  */
 
-app.use('/img', express.static(__dirname + '/public/img'));
 
 
 
@@ -88,7 +85,7 @@ app.use('/img', express.static(__dirname + '/public/img'));
 
 
 
-mongoose.connect("mongodb://localhost:2717/subscription-manager-database", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb://localhost:2717/subscription-manager-database", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
 mongoose.connection
 	.once("open", () => console.log("Connected"))
 	.on("error", (error) => {
@@ -255,6 +252,6 @@ app.get("/uploads/:name", function(req, res) {
 
 
 
-app.listen(portNum, () => {
-	console.log(`Running app at localhost: ${portNum}`);
+app.listen(process.argv[2], () => {
+	console.log(`Running app at localhost: ${process.argv[2]}`);
 });

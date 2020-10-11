@@ -4,8 +4,8 @@
   "description": "A subscription manager web-app",
   "main": "app.js",
   "scripts": {
-    "compile:scss": "node-sass sass/main.scss public/css/style.css",
-    "compile:scss--watch": "node-sass sass/*.scss public/css/style.css -w",
+    "compile:scss": "node-sass sass/main.scss public/static/css/style.css",
+    "compile:scss--watch": "node-sass sass/*.scss public/static/css/style.css -w",
     "dev": "nodemon -e scss,css,html,js app.js"
   },
   "repository": {

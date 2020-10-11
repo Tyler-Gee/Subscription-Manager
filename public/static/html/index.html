@@ -8,9 +8,9 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,500,600,700,900" rel="stylesheet">
 
-    <script src="/index.js"></script>
+    <script src="/static/js/index.js"></script>
     
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 
     <script src="https://unpkg.com/eva-icons"></script>
 
@@ -28,8 +28,8 @@
                         <input type="password" class="sign-in-module__form--password" placeholder="Password">
                     </form>
                     <div class="sign-in-module__option-btn-box">
-                        <a href="" class="btn sign-in-module__btn--password-recover">Forgot Password?</a>
-                        <a href="" class="btn sign-in-module__btn--sign-up-small">Need an account?</a>
+                        <a href="/forgot-password" class="btn sign-in-module__btn--password-recover" data-link>Forgot Password?</a>
+                        <a href="/create-account" class="btn sign-in-module__btn--sign-up-small" data-link>Need an account?</a>
                         <div class="sign-in-module__checkbox">
                             <label class="switch">
                                 <input type="checkbox" id="remember-me-checkbox" class="sign-in-module__checkbox--checkbox">
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <p class="sign-in-module__user-agreement-text">By clicking on Sign up you agree with<br>our Terms & Conditions</p>
-                    <a href="" class="btn btn--primary-color btn--animated sign-in-module__btn"> SIGN IN</a>
+                    <a href="/sign-in" class="btn btn--primary-color btn--animated sign-in-module__btn" data-link> SIGN IN</a>
                     <p class="sign-in-module__sign-in-option-text"> Or with</p>
                 </div>
                 <div class="row sign-in-module__container--lower">
@@ -49,18 +49,18 @@
                     <div class="col-1-of-3">
                         <div class="row icon-container--social">
                             <div class="col-1-of-3">
-                                <a href="" class="sign-in-module__link-account-btn">
-                                    <img src="/img/google.svg" alt="" class="social-media-icon--svg svg--google">
+                                <a href="/sign-in-google" class="sign-in-module__link-account-btn" data-link>
+                                    <img src="/img/google.svg" alt="" class="social-media-icon--svg svg--google" >
                                 </a>
                             </div>
                             <div class="col-1-of-3">
-                                <a href="" class="sign-in-module__link-account-btn">
-                                    <img src="/img/facebook.svg" alt="" class="social-media-icon--svg svg--facebook">
+                                <a href="/sign-in-facebook" class="sign-in-module__link-account-btn" data-link>
+                                    <img src="/img/facebook.svg" alt="" class="social-media-icon--svg svg--facebook" >
                                 </a>
                             </div>
                             <div class="col-1-of-3">
-                                <a href="" class="sign-in-module__link-account-btn">
-                                    <img src="/img/paypal.svg" alt="" class="social-media-icon--svg svg--paypal">
+                                <a href="sign-in-paypal" class="sign-in-module__link-account-btn" data-link>
+                                    <img src="/img/paypal.svg" alt="" class="social-media-icon--svg svg--paypal" >
                                 </a>
                             </div>
                         </div>

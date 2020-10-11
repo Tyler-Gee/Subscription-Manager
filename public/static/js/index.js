@@ -1,4 +1,59 @@
-docReady(function () {
+const navigateTo = url => {
+    history.pushState(null, null, url);
+    router();
+}
+
+const router = async () => {
+    const routes = [
+        {path: "/", view: () => console.log("View root")},
+        {path: "/forgot-password", view: () => console.log("View forgot-password")},
+        {path: "/create-account", view: () => console.log("View create-account")},
+        {path: "/sign-in", view: () => console.log("View sign-in")},
+        {path: "/sign-in-google", view: () => console.log("View sign-in via Google")},
+        {path: "/sign-in-facebook", view: () => console.log("View sign-in via Facebook")},
+        {path: "/sign-in-paypal", view: () => console.log("View sign-in via Paypal")}
+    ];
+
+    const potentialMatches = routes.map(route => {
+        return {
+            route: route,
+            isMatch: location.pathname === route.path
+        };
+    });
+
+    let match = potentialMatches.find(potentialMatch => potentialMatch.isMatch);
+
+    if(!match){
+        match = {
+            route: "Route 404: Page not found",
+            isMatch: false
+        }
+    }
+    match.route.view();
+    //console.log(match.route.view());
+};
+
+window.addEventListener("popstate", router);
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.body.addEventListener("click", e => {
+        if((e.target.hasAttribute("data-link")) || (e.target.parentElement.hasAttribute("data-link"))){
+            e.preventDefault();
+            e.target.hasAttribute("data-link") ? navigateTo(e.target.href) : navigateTo(e.target.parentElement.href);
+        }
+    });
+
+    router();
+});
+
+
+
+
+
+
+
+
+/* docReady(function () {
     var usernameCookie = getCookie("username");
     var passwordCookie = getCookie("password");
     if(usernameCookie && passwordCookie){
@@ -20,10 +75,8 @@ docReady(function () {
             signInProm.then((response) => {
                 if(response == "sign-in--success"){
                     if(document.getElementsByClassName("sign-in-module__checkbox--checkbox")[0].checked == true){
-                        console.log("hello");
                         usernameCookie = getCookie("username");
                         passwordCookie = getCookie("password");
-                        console.log(usernameCookie.length);
 
                         if(usernameCookie.length == 0 && passwordCookie.length == 0){
                             createCookie("username", user_username, 1000);
@@ -31,7 +84,7 @@ docReady(function () {
                         }
                     }
                 }
-            }).catch((error) => {/*Throw Error Code*/});
+            }).catch((error) => {console.log("Throw Errors");});
         }
         else{
             console.log("username is not in a valid format");
@@ -47,7 +100,7 @@ docReady(function () {
         //document.cookie = "password=; expires=Thu, 01 Jan 1971 00:00:00 UTC; path=/;";
         alert(document.cookie);
     },false);
-});
+}); */
 
 //this is just a test of creating a user
 function createaccountexample(){

@@ -1,3 +1,6 @@
+import Landing from "./views/Landing.js";
+import CreateAccount from "./views/CreateAccount.js";
+
 const navigateTo = url => {
     history.pushState(null, null, url);
     router();
@@ -5,13 +8,14 @@ const navigateTo = url => {
 
 const router = async () => {
     const routes = [
-        {path: "/", view: () => console.log("View root")},
-        {path: "/forgot-password", view: () => console.log("View forgot-password")},
-        {path: "/create-account", view: () => console.log("View create-account")},
-        {path: "/sign-in", view: () => console.log("View sign-in")},
-        {path: "/sign-in-google", view: () => console.log("View sign-in via Google")},
-        {path: "/sign-in-facebook", view: () => console.log("View sign-in via Facebook")},
-        {path: "/sign-in-paypal", view: () => console.log("View sign-in via Paypal")}
+        {path: "/", view: Landing},
+        //{path: "/forgot-password", view: () => console.log("View forgot-password")},
+        {path: "/need-account", view: CreateAccount},
+        //{path: "/create-account", view: () => console.log("View sign-in")},
+        //{path: "/sign-in", view: () => console.log("View sign-in")},
+        //{path: "/sign-in-google", view: () => console.log("View sign-in via Google")},
+        //{path: "/sign-in-facebook", view: () => console.log("View sign-in via Facebook")},
+        //{path: "/sign-in-paypal", view: () => console.log("View sign-in via Paypal")}
     ];
 
     const potentialMatches = routes.map(route => {
@@ -29,8 +33,10 @@ const router = async () => {
             isMatch: false
         }
     }
-    match.route.view();
-    //console.log(match.route.view());
+    
+    const view = new match.route.view();
+    document.querySelector("#app").innerHTML = await view.getHtml();
+    
 };
 
 window.addEventListener("popstate", router);
@@ -47,13 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-
-
-
-
-
-
-/* docReady(function () {
+/*docReady(function () {
     var usernameCookie = getCookie("username");
     var passwordCookie = getCookie("password");
     if(usernameCookie && passwordCookie){

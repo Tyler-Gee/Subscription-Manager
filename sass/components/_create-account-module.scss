@@ -1,0 +1,27 @@
+.create-account-module{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 80%;
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid $color-black;
+    text-align: center;
+
+    &__form--credentials{
+    height: 30%;
+    width: 100%;
+    background-color: $color-black;
+    }
+
+    &__form--security-questions{
+        height: 40%;
+        width: 100%;
+        background-color: $color-grey-light;
+    }
+
+    .create-account-module-form__input{
+        height: 4rem;
+        width: 50%;
+    }
+}

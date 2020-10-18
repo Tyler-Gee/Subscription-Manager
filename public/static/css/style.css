@@ -983,6 +983,27 @@ Full width
     -ms-transform: translateX(1.8rem);
     transform: translateX(1.8rem); }
 
+.create-account-module {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 80%;
+  width: 50%;
+  margin: 0 auto;
+  border: 1px solid #000;
+  text-align: center; }
+  .create-account-module__form--credentials {
+    height: 30%;
+    width: 100%;
+    background-color: #000; }
+  .create-account-module__form--security-questions {
+    height: 40%;
+    width: 100%;
+    background-color: #fafafa; }
+  .create-account-module .create-account-module-form__input {
+    height: 4rem;
+    width: 50%; }
+
 .header {
   position: relative;
   height: 101rem;
@@ -1202,6 +1223,11 @@ Full width
         margin-top: 5rem; }
       .section-features__feature-box-feature--1 .feature--support-text, .section-features__feature-box-feature--2 .feature--support-text, .section-features__feature-box-feature--3 .feature--support-text, .section-features__feature-box-feature--4 .feature--support-text {
         margin-top: 1rem; }
+
+.create-account-page-container {
+  height: 101rem;
+  width: 100%;
+  background-color: #9846f2; }
 
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document

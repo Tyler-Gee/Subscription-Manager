@@ -1,91 +1,77 @@
+// Express App (Routes)
+// https://mongoosejs.com/docs/api.html
 const express = require("express");
 const app = express();
 const path = require("path");
-const fs = require("fs");
-const JavaScriptObfuscator = require("javascript-obfuscator");
 const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 app.use(fileUpload());
 
-app.use("/static", express.static(path.resolve(__dirname, "public", "static")));
-app.use('/img', express.static(path.resolve(__dirname, "public", "img")));
+// Minimization
+const fs = require("fs");
+const JavaScriptObfuscator = require("javascript-obfuscator");
+
+// Important, pass in port as in `npm run dev 1234`, do not change
+const portNum = process.argv[2];
 
 // Send HTML at root, do not change
-app.get("/*", function (req, res) {
-    res.sendFile(path.resolve(__dirname, "public", "static/html/index.html"));
+app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
-/* // Send Style, do not change
+// Send Style, do not change
 app.get("/style.css", function (req, res) {
     //Feel free to change the contents of style.css to prettify your Web app
-    res.sendFile(path.resolve(__dirname, "public", "style.css"));
+    res.sendFile(path.join(__dirname + "/public/css/style.css"));
 });
 
 //Send obfuscated JS, do not change
 app.get("/index.js", function(req, res) {
-	fs.readFile(path.resolve(__dirname, "public", "index.js"), "utf8", function(err, contents) {
+	fs.readFile(path.join(__dirname + "/public/index.js"), "utf8", function(err, contents) {
 		const minimizedContents = JavaScriptObfuscator.obfuscate(contents, { compact: true, controlFlowFlattening: true });
 		res.contentType("application/javascript");
 		res.send(minimizedContents._obfuscatedCode);
 	});
-});  */
+}); 
+
+app.use('/img', express.static(__dirname + '/public/img'));
+
+//Respond to POST requests that upload files to uploads/ directory
+app.post("/upload", function(req, res) {
+	if (!req.files) {
+		return res.status(400).send("No files were uploaded.");
+	}
+
+	let uploadFile = req.files.uploadFile;
+
+	// Use the mv() method to place the file somewhere on your server
+	uploadFile.mv("uploads/" + uploadFile.name, function(err) {
+		if (err) {
+			return res.status(500).send(err);
+		}
+		res.redirect("/");
+	});
+});
+
+//Respond to GET requests for files in the uploads/ directory
+app.get("/uploads/:name", function(req, res) {
+	fs.stat("uploads/" + req.params.name, function(err, stat) {
+		console.log(err);
+		if (err == null) {
+			res.sendFile(path.join(__dirname + "/uploads/" + req.params.name));
+		} else {
+			res.send("");
+		}
+	});
+});
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/****************************************************************************************************************************** */
-/********************************                         MONGOOSE CODE                          ****************************** */
-/****************************************************************************************************************************** */
-
-
-
-mongoose.connect("mongodb://localhost:2717/subscription-manager", { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+mongoose.connect("mongodb://localhost:2717/subscription-manager", { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection
 	.once("open", () => console.log("Connected"))
 	.on("error", (error) => {
@@ -149,109 +135,6 @@ app.get("/createUser/:username/:password", function (req, res) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-//Respond to POST requests that upload files to uploads/ directory
-app.post("/upload", function(req, res) {
-	if (!req.files) {
-		return res.status(400).send("No files were uploaded.");
-	}
-
-	let uploadFile = req.files.uploadFile;
-
-	// Use the mv() method to place the file somewhere on your server
-	uploadFile.mv("uploads/" + uploadFile.name, function(err) {
-		if (err) {
-			return res.status(500).send(err);
-		}
-		res.redirect("/");
-	});
-});
-
-//Respond to GET requests for files in the uploads/ directory
-app.get("/uploads/:name", function(req, res) {
-	fs.stat("uploads/" + req.params.name, function(err, stat) {
-		console.log(err);
-		if (err == null) {
-			res.sendFile(path.join(__dirname + "/uploads/" + req.params.name));
-		} else {
-			res.send("");
-		}
-	});
-});
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.listen(process.argv[2], () => {
-	console.log(`Running app at localhost: ${process.argv[2]}`);
+app.listen(portNum, () => {
+	console.log(`Running app at localhost: ${portNum}`);
 });

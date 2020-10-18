@@ -1,9 +1,9 @@
 export default class {
-    constructor(){
-        //handle parameters
+    constructor() {
+
     }
 
-    setTitle(title){
+    setTitle(title) {
         document.title = title;
     }
 

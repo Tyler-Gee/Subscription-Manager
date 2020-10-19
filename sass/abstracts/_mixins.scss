@@ -26,14 +26,6 @@
 }
 
 @mixin calc-col-width($property, $num-of-col, $span){
-/*
-    width: calc((100% - #{$gutter-horizontal}) / 2);
-    width: calc((100% - (2 * #{$gutter-horizontal} )) / 3);
-    width: calc(2 * ((100% - (2 * #{$gutter-horizontal} )) / 3) + #{$gutter-horizontal});
-    width: calc((100% - (3 * #{$gutter-horizontal} )) / 4);
-    width: calc(2 * ((100% - (3 * #{$gutter-horizontal} )) / 4) + #{$gutter-horizontal});
-    width: calc(3 * ((100% - (3 * #{$gutter-horizontal} )) / 4) + (#{$gutter-horizontal} * 2));
-*/
     #{$property}: calc(#{$span} * ((100% - ((#{$num-of-col} - 1) * #{$gutter-horizontal})) / #{$num-of-col}) + ( (#{$span} - 1) * #{$gutter-horizontal}));
 }
 

@@ -1,27 +1,73 @@
 .create-account-module{
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 80%;
-    width: 50%;
+    height: 100%;
+    width: 70%;
     margin: 0 auto;
-    border: 1px solid $color-black;
     text-align: center;
 
-    &__form--credentials{
-    height: 30%;
-    width: 100%;
-    background-color: $color-black;
+    &__heading{
+        padding-top: 8rem;
+        font-size: 3rem;
+        color: $color-white;
+        margin-bottom: 4rem;
+        text-transform: capitalize;
     }
 
-    &__form--security-questions{
-        height: 40%;
-        width: 100%;
-        background-color: $color-grey-light;
+    &_sub-heading{
+        font-size: 1.5rem;
+        font-weight: 400;
+        color: $color-white;
+        margin: 0 0 1rem 34.18rem;
+        text-align: left;
+    }
+
+    &__form--credentials{
+        margin-bottom: 11rem;
     }
 
     .create-account-module-form__input{
-        height: 4rem;
+        display: inline-block;
         width: 50%;
+        padding-left: 1rem;
+        font-size: 2rem;
+        border:.15rem solid grey;
+        border-radius: 3px;
+        padding-left: 1rem;
+    }
+
+    input[class*="credentials"]{
+        height: 6rem;
+        &:not(:last-child){
+            margin-bottom: 1.5rem;
+        }
+    }
+
+    input[class*="security"]{
+        height: 4rem;
+        &:not(:last-child){
+            margin-bottom: 2rem;
+        }
+    }
+
+    .create-account-module__checkbox{
+        width: 50%;
+        margin: 1rem auto;
+        text-align: left;
+
+        &--label{
+            font-family: "Lato";
+            font-size: 1.4rem;
+            color: white;
+            margin-left: 1rem;
+            vertical-align: middle;
+        }
+    }
+
+    &__btn{
+        margin-top: 4rem;
+        width: 25%;
+        font-family: "Lato";
+        font-size: 3rem;
+        padding: 2.5rem 0;
+        border-radius: 0 3px;
     }
 }

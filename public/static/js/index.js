@@ -52,15 +52,16 @@ document.addEventListener("DOMContentLoaded", () => {
     router();
 });
 
-
-/*docReady(function () {
+docReady(function () {
     var usernameCookie = getCookie("username");
     var passwordCookie = getCookie("password");
     if(usernameCookie && passwordCookie){
         signIn(usernameCookie, passwordCookie);
     }
 
-    document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", (event) => {
+    var signInBtn = document.getElementsByClassName("sign-in-module__btn")[0];
+    if(signInBtn){
+        signInBtn.addEventListener("click", (event) => {
         event.preventDefault();
 
         // Gather user data
@@ -94,13 +95,57 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     },false);
+    }
 
-	document.getElementsByClassName("btn sign-in-module__btn--password-recover")[0].addEventListener("click",(event) => {
+    var forgotPasswordBtn = document.getElementsByClassName("sign-in-module__btn--password-recover")[0];
+    if(forgotPasswordBtn){
+        forgotPasswordBtn.addEventListener("click",(event) => {
         event.preventDefault();    
         //document.cookie = "password=; expires=Thu, 01 Jan 1971 00:00:00 UTC; path=/;";
         alert(document.cookie);
     },false);
-}); */
+    }
+
+    var needAccountBtn = document.getElementsByClassName("create-account-module__btn")[0];
+    if(needAccountBtn){
+        needAccountBtn.addEventListener("click", (event) => {
+            event.preventDefault();
+        var user_username = document.getElementsByClassName("credentials--username")[0].value
+        var user_password = document.getElementsByClassName("credentials--password-one")[0].value
+        var user_confirmedPassword = document.getElementsByClassName("credentials--password-two")[0].value
+        var user_questionOne = document.getElementsByClassName("security-question--one")[0].value
+        var user_answerOne = document.getElementsByClassName("security-question-answer--one")[0].value
+        var user_questionTwo = document.getElementsByClassName("security-question--one")[0].value
+        var user_answerTwo = document.getElementsByClassName("security-question-answer--two")[0].value
+
+        console.log(user_username);
+        console.log(user_password);
+        console.log(user_confirmedPassword);
+        console.log(user_questionOne);
+        console.log(user_answerOne);
+        console.log(user_questionTwo);
+        console.log(user_answerTwo);
+    },false);   
+    }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //this is just a test of creating a user
 function createaccountexample(){

@@ -98,8 +98,7 @@ const usersCollectionSchema = new Schema({
 		type: String,
 		required: true,
 		unique: true,
-	},
-	password: { type: String, min: 8, max: 64 },
+	}
 });
 
 const userAccountCredentials = mongoose.model("users", usersCollectionSchema);
@@ -110,7 +109,7 @@ app.get("/users", function (req, res) {
 	});
 });
 
-app.get("/uniqueUsername/:username", function(req, res) {
+app.post("/uniqueUsername/:username", function(req, res) {
     userAccountCredentials.findOne({ username: req.params.username.substring(1) }, function (err, obj) {
         obj == null ? res.send("username--nonexistent") : res.send("username--exists");
     });
@@ -123,17 +122,29 @@ app.get("/verifyCredentials/:username/:password", (req, res) => {
     });
 });
 
-app.get("/createUser/:username/:password", function (req, res) {
+
+app.get("/createUser/:username/:password/:secQuestOne/:secAnswOne/:secQuestTwo/:secAnswTwo", function (req, res) {
 	let newUser = new userAccountCredentials({
 		username: req.params.username.substring(1),
 		password: req.params.password.substring(1),
+		secQuestOne: req.params.secQuestOne.substring(1),
+		secAnswOne: req.params.secAnswOne.substring(1),
+		secQuestTwo: req.params.secQuestTwo.substring(1),
+		secAnswTwo: req.params.secAnswOne.substring(1),
 	});
 
 	newUser.save(function (err) {
 		if (err) return handleError(err);
 	});
 
-	res.send(`Username: ${req.params.username.substring(1)}\nPassword: ${req.params.password.substring(1)}\n`);
+    res.send(`
+        Username: ${req.params.username.substring(1)}\n
+        Password: ${req.params.password.substring(1)}\n
+        Question One: ${req.params.secQuestOne.substring(1)}\n
+        Answer One:${req.params.secAnswOne.substring(1)}\n
+        Question Two: ${req.params.secQuestTwo.substring(1)}\n
+        Answer Two: ${req.params.secAnswTwo.substring(1)}\n
+    `);
 });
 
 

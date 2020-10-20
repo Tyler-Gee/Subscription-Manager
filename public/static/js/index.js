@@ -1,7 +1,7 @@
 import Landing from "./views/Landing.js";
 import CreateAccount from "./views/CreateAccount.js";
 
-const navigateTo = url => {
+const navigateTo = (url) => {
     history.pushState(null, null, url);
     router();
 }
@@ -65,11 +65,11 @@ docReady(function () {
         event.preventDefault();
 
         // Gather user data
-        var user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
+        let user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
         let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
         
         // verify username: no special characters can get through to the database for security reasons
-        const acceptFormat = verifyUsernameFormat(user_username);
+        const acceptFormat = verifyStringFormat(user_username, true, true, true, true);
 
         if(acceptFormat.length == 0){
             let signInProm = signIn(user_username, user_password);
@@ -110,22 +110,70 @@ docReady(function () {
     if(needAccountBtn){
         needAccountBtn.addEventListener("click", (event) => {
             event.preventDefault();
-        var user_username = document.getElementsByClassName("credentials--username")[0].value
-        var user_password = document.getElementsByClassName("credentials--password-one")[0].value
-        var user_confirmedPassword = document.getElementsByClassName("credentials--password-two")[0].value
-        var user_questionOne = document.getElementsByClassName("security-question--one")[0].value
-        var user_answerOne = document.getElementsByClassName("security-question-answer--one")[0].value
-        var user_questionTwo = document.getElementsByClassName("security-question--one")[0].value
-        var user_answerTwo = document.getElementsByClassName("security-question-answer--two")[0].value
+            var userInput = [
+                document.getElementsByClassName("credentials--username")[0].value,
+                document.getElementsByClassName("credentials--password-one")[0].value,
+                document.getElementsByClassName("credentials--password-two")[0].value,
+                document.getElementsByClassName("security-question--one")[0].value,
+                document.getElementsByClassName("security-question-answer--one")[0].value,
+                document.getElementsByClassName("security-question--two")[0].value,
+                document.getElementsByClassName("security-question-answer--two")[0].value
+            ];
+            
+            var inputValidationReport = [
+                verifyStringFormat(userInput[0], true, true, true),
+                verifyStringFormat(userInput[1], true, false, true, false),
+                verifyStringFormat(userInput[2],true, false, true, false),
+                verifyStringFormat(userInput[3],true, false, false, true),
+                verifyStringFormat(userInput[4],true, false, false, true),
+                verifyStringFormat(userInput[5],true, false, false, true),
+                verifyStringFormat(userInput[6],true, false, false, true)
+            ];
 
-        console.log(user_username);
-        console.log(user_password);
-        console.log(user_confirmedPassword);
-        console.log(user_questionOne);
-        console.log(user_answerOne);
-        console.log(user_questionTwo);
-        console.log(user_answerTwo);
-    },false);   
+            if(userInput[1] != userInput[2]){
+                inputValidationReport[inputValidationReport.length] = "INV_NO-MATCH";
+            }
+
+            var errCodeFound = false;
+            inputValidationReport.forEach((errorCode) => {
+                if(errorCode.length > 0){   
+                    errCodeFound = true;
+                    console.log(errorCode);
+                }
+            });
+            
+            var test = "hello";
+            fetch(`/uniqueUsername/:${userInput[0]}`).then(function(response) {
+                response.text().then(function(text) {
+                    test = text
+                });
+            });
+            console.log(test);
+
+            if(errCodeFound == false){
+                //user can create account now
+                /* const createAccountPromise = createNewUser(
+                    `/uniqueUsername/:${userInput[0]}`,
+                    `/createUser/:${userInput[0]}/:${userInput[1]}/:${userInput[3]}
+                    /:${userInput[4]}/:${userInput[5]}/:${userInput[6]}`
+                );
+
+                createAccountPromise.then((response) => {
+                    if(document.getElementsByClassName("create-account-module__checkbox--checkbox")[0].checked == true){
+                        document.cookie = `username=${userInput[0]}`;
+                        document.cookie = `password=${userInput[1]}`;
+                    }
+                })
+                .catch((error) => {
+                    console.log(`Status: ${error}`);
+                }); */
+            }
+            else{
+                // there was an issue and user needs to be use different 
+                console.log("bad");
+            }
+
+        },false);   
     }
 });
 
@@ -156,7 +204,7 @@ function createaccountexample(){
         
         var user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
         let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
-        var usernameValidationErrors = verifyUsernameFormat(user_username);
+        var usernameValidationErrors = verifyStringFormat(user_username);
         
         if (usernameValidationErrors.length == 0) {
             const createAccountPromise = createNewUser(
@@ -197,7 +245,7 @@ function docReady(fn) {
 
 function isAlphaNumeric(str) {
     for(var i = 0; i < str.length; i++){
-        charCode = str.charCodeAt(i);
+        var charCode = str.charCodeAt(i);
         if( !(charCode >= 48 && charCode <= 57) &&  // 0-9
             !(charCode >= 65 && charCode <= 90) &&  // A-Z
             !(charCode >= 97 && charCode <= 122)){  // a-z 
@@ -209,7 +257,7 @@ function isAlphaNumeric(str) {
 
 function containsWhitespace(str){
     for (var i = 0; i < str.length; i++) {
-		charCode = str.charCodeAt(i);
+		var charCode = str.charCodeAt(i);
 		if (
             (charCode >= 9 && charCode <= 13) ||
             (charCode == 32) || (charCode == 133)  ||
@@ -227,7 +275,7 @@ function containsWhitespace(str){
 
 function containsSpecialCharacter(str){
     for (var i = 0; i < str.length; i++) {
-		charCode = str.charCodeAt(i);
+		var charCode = str.charCodeAt(i);
 		if (
             !(charCode >= 9 && charCode <= 13) &&
             !(charCode == 32) &&
@@ -247,7 +295,7 @@ function containsSpecialCharacter(str){
 	return false;
 }
 
-function verifyUsernameFormat(str) {
+function verifyStringFormat(str,  CHECK_empty, CHECK_length, CHECK_whitespace, CHECK_characters) {
     const errorCode = [
         "INV_EMPTY",
         "INV_LENGTH",
@@ -256,21 +304,37 @@ function verifyUsernameFormat(str) {
     ];
     var errorResults = new Array();
 
+    // check for empty string
+    if(CHECK_empty == true){
+        if(str.length == 0){
+            errorResults.push(errorCode[0]);
+        }
+    }
+
     // Check for valid length
-    if(str.length == 0 || str.length > 16){
-        str.length == 0 ? errorResults.push(errorCode[0]) : errorResults.push(errorCode[1]);
+    if(CHECK_length == true){
+        if(str.length > 16){
+            errorResults.push(errorCode[1]);
+        }        
     }
+
     // Check for any whitespace
-    if(containsWhitespace(str)){
-        errorResults.push(errorCode[2]);
+    if(CHECK_whitespace == true){
+        if(containsWhitespace(str)){
+            errorResults.push(errorCode[2]);
+        }
     }
+
     //check for any special characters
-    if(containsSpecialCharacter(str)){
-        errorResults.push(errorCode[3]);
+    if(CHECK_characters == true){
+        if(containsSpecialCharacter(str)){
+            errorResults.push(errorCode[3]);
+        }
     }
 
     return errorResults;
 }
+
 
 function HTTP_ROUTE__returnFetchAsPromise(path) {
 	return new Promise((resolve, reject) => {

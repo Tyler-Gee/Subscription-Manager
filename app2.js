@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 app.use(fileUpload());
+app.use(express.static(__dirname + "/public/static"));
 
 // Minimization
 const fs = require("fs");
@@ -18,18 +19,18 @@ const portNum = process.argv[2];
 
 // Send HTML at root, do not change
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname + "/public/index.html"));
+    res.sendFile(path.join(__dirname + "/public/static/html/index.html"));
 });
 
 // Send Style, do not change
 app.get("/style.css", function (req, res) {
     //Feel free to change the contents of style.css to prettify your Web app
-    res.sendFile(path.join(__dirname + "/public/css/style.css"));
+    res.sendFile(path.join(__dirname + "/css/style.css"));
 });
 
 //Send obfuscated JS, do not change
 app.get("/index.js", function(req, res) {
-	fs.readFile(path.join(__dirname + "/public/index.js"), "utf8", function(err, contents) {
+	fs.readFile(path.join(__dirname + "/public/static/js/index.js"), "utf8", function(err, contents) {
 		const minimizedContents = JavaScriptObfuscator.obfuscate(contents, { compact: true, controlFlowFlattening: true });
 		res.contentType("application/javascript");
 		res.send(minimizedContents._obfuscatedCode);
@@ -71,7 +72,7 @@ app.get("/uploads/:name", function(req, res) {
 
 
 
-mongoose.connect("mongodb://localhost:2717/subscription-manager-database", { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect("mongodb://localhost:2717/subscription-manager", { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection
 	.once("open", () => console.log("Connected"))
 	.on("error", (error) => {

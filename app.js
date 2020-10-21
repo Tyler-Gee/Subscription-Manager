@@ -98,7 +98,8 @@ const usersCollectionSchema = new Schema({
 		type: String,
 		required: true,
 		unique: true,
-	}
+	},
+	password: { type: String, min: 8, max: 64 },
 });
 
 const userAccountCredentials = mongoose.model("users", usersCollectionSchema);
@@ -109,7 +110,7 @@ app.get("/users", function (req, res) {
 	});
 });
 
-app.post("/uniqueUsername/:username", function(req, res) {
+app.get("/uniqueUsername/:username", function(req, res) {
     userAccountCredentials.findOne({ username: req.params.username.substring(1) }, function (err, obj) {
         obj == null ? res.send("username--nonexistent") : res.send("username--exists");
     });

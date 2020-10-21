@@ -3,16 +3,14 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const fs = require("fs");
+const JavaScriptObfuscator = require("javascript-obfuscator");
 const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 app.use(fileUpload());
 app.use(express.static(__dirname + "/public/static"));
-
-// Minimization
-const fs = require("fs");
-const JavaScriptObfuscator = require("javascript-obfuscator");
 
 // Important, pass in port as in `npm run dev 1234`, do not change
 const portNum = process.argv[2];

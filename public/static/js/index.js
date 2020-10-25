@@ -1,3 +1,6 @@
+/// https://www.youtube.com/watch?v=OstALBk-jTc&t=705s&ab_channel=dcode 10 mins
+
+
 import Landing from "./views/Landing.js";
 import CreateAccount from "./views/CreateAccount.js";
 
@@ -5,27 +8,39 @@ const navigateTo = (url) => {
     history.pushState(null, null, url);
     router();
 }
+const pathToRegex = path=> new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+
+const getParams = match => {
+    const values = match.result.slice(1);
+    const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(result => result[1]);
+
+    console.log(Array.from(match.route.path.matchAll(/:(\w+)/g)));
+
+    return {};
+}
 
 const router = async () => {
     const routes = [
         {path: "/", view: Landing},
         //{path: "/forgot-password", view: () => console.log("View forgot-password")},
         {path: "/need-account", view: CreateAccount},
+        {path: "/need-account/:username", view: CreateAccount},
         //{path: "/create-account", view: () => console.log("View sign-in")},
         //{path: "/sign-in", view: () => console.log("View sign-in")},
         //{path: "/sign-in-google", view: () => console.log("View sign-in via Google")},
         //{path: "/sign-in-facebook", view: () => console.log("View sign-in via Facebook")},
         //{path: "/sign-in-paypal", view: () => console.log("View sign-in via Paypal")}
+
     ];
 
     const potentialMatches = routes.map(route => {
         return {
             route: route,
-            isMatch: location.pathname === route.path
+            result: location.pathname.match(pathToRegex(route.path))
         };
     });
 
-    let match = potentialMatches.find(potentialMatch => potentialMatch.isMatch);
+    let match = potentialMatches.find(potentialMatch => potentialMatch.result !== null);
 
     if(!match){
         match = {
@@ -34,7 +49,7 @@ const router = async () => {
         }
     }
     
-    const view = new match.route.view();
+    const view = new match.route.view(getParams(match));
     document.querySelector("#app").innerHTML = await view.getHtml();
     
 };

@@ -24,7 +24,7 @@ app.get("/style.css", function (req, res) {
 });
 
 //Send obfuscated JS, do not change
-app.get("/index.js", function(req, res) {
+app.get("/index.js", functpathToRegexion(req, res) {
 	fs.readFile(path.resolve(__dirname, "public", "index.js"), "utf8", function(err, contents) {
 		const minimizedContents = JavaScriptObfuscator.obfuscate(contents, { compact: true, controlFlowFlattening: true });
 		res.contentType("application/javascript");

@@ -1,12 +1,13 @@
 import AbstractView from "./AbstractView.js";
 
 export default class extends AbstractView {
-    constructor(){
-        super();
+    constructor(params){
+        super(params);
         this.setTitle("Create Account");
     }
 
     async getHtml() {
+        console.log(this.params.username);
         return `
             <main>
                 <div class="create-account-page-container">

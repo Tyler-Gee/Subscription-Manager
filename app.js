@@ -13,7 +13,7 @@ app.use("/static", express.static(path.resolve(__dirname, "public", "static")));
 app.use('/img', express.static(path.resolve(__dirname, "public", "img")));
 
 // Send HTML at root, do not change
-app.get("/*", function (req, res) {
+app.get("/", function (req, res) {
     res.sendFile(path.resolve(__dirname, "public", "static/html/index.html"));
 });
 
@@ -99,19 +99,27 @@ const usersCollectionSchema = new Schema({
 		required: true,
 		unique: true,
 	},
-	password: { type: String, min: 8, max: 64 },
+    password: { type: String, min: 8, max: 64 },
+    secQuestOne: {type: String},
+    secAnswOne: {type: String},
+    secQuestTwo: {type: String},
+    secAnswTwo:{type: String}
 });
 
 const userAccountCredentials = mongoose.model("users", usersCollectionSchema);
 
 app.get("/users", function (req, res) {
+    console.log("hello");
 	mongoose.model("users").find(function (err, users) {
-		res.send(users);
+        console.log(users);
+        res.send(users);
 	});
 });
 
 app.get("/uniqueUsername/:username", function(req, res) {
+    console.log("test");
     userAccountCredentials.findOne({ username: req.params.username.substring(1) }, function (err, obj) {
+        console.log(obj);
         obj == null ? res.send("username--nonexistent") : res.send("username--exists");
     });
 });
@@ -262,6 +270,10 @@ app.get("/uploads/:name", function(req, res) {
 
 
 
+app.get("/*", function (req, res) {
+    console.log("test2");
+    res.sendFile(path.resolve(__dirname, "public", "static/html/index.html"));
+});
 
 
 app.listen(process.argv[2], () => {

@@ -30,7 +30,7 @@ export default class extends AbstractView {
                                 </div>
                             </div>
                             <p class="sign-in-module__user-agreement-text">By clicking on Sign In you agree with<br>our Terms & Conditions</p>
-                            <a href="/sign-in" class="btn btn--primary-color btn--animated sign-in-module__btn" data-link> SIGN IN</a>
+                            <a href="/users" class="btn btn--primary-color btn--animated sign-in-module__btn" data-link> SIGN IN</a>
                             <p class="sign-in-module__sign-in-option-text"> Or with</p>
                         </div>
                         <div class="row sign-in-module__container--lower">

@@ -14,9 +14,11 @@ const getParams = match => {
     const values = match.result.slice(1);
     const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map(result => result[1]);
 
-    console.log(Array.from(match.route.path.matchAll(/:(\w+)/g)));
+    //console.log(Array.from(match.route.path.matchAll(/:(\w+)/g)));
 
-    return {};
+    return Object.fromEntries(keys.map((key, i) => {
+        return [key, values[i]];
+    }));
 }
 
 const router = async () => {
@@ -24,7 +26,6 @@ const router = async () => {
         {path: "/", view: Landing},
         //{path: "/forgot-password", view: () => console.log("View forgot-password")},
         {path: "/need-account", view: CreateAccount},
-        {path: "/need-account/:username", view: CreateAccount},
         //{path: "/create-account", view: () => console.log("View sign-in")},
         //{path: "/sign-in", view: () => console.log("View sign-in")},
         //{path: "/sign-in-google", view: () => console.log("View sign-in via Google")},
@@ -44,8 +45,8 @@ const router = async () => {
 
     if(!match){
         match = {
-            route: "Route 404: Page not found",
-            isMatch: false
+            route: routes[0],
+            result: [location.pathname]
         }
     }
     
@@ -156,32 +157,14 @@ docReady(function () {
                     console.log(errorCode);
                 }
             });
-            
-            var test = "hello";
-            fetch(`/uniqueUsername/:${userInput[0]}`).then(function(response) {
-                response.text().then(function(text) {
-                    test = text
-                });
-            });
-            console.log(test);
 
             if(errCodeFound == false){
                 //user can create account now
-                /* const createAccountPromise = createNewUser(
+                createNewUser(
                     `/uniqueUsername/:${userInput[0]}`,
                     `/createUser/:${userInput[0]}/:${userInput[1]}/:${userInput[3]}
                     /:${userInput[4]}/:${userInput[5]}/:${userInput[6]}`
                 );
-
-                createAccountPromise.then((response) => {
-                    if(document.getElementsByClassName("create-account-module__checkbox--checkbox")[0].checked == true){
-                        document.cookie = `username=${userInput[0]}`;
-                        document.cookie = `password=${userInput[1]}`;
-                    }
-                })
-                .catch((error) => {
-                    console.log(`Status: ${error}`);
-                }); */
             }
             else{
                 // there was an issue and user needs to be use different 

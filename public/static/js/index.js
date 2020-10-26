@@ -135,7 +135,7 @@ docReady(function () {
                 document.getElementsByClassName("security-question--two")[0].value,
                 document.getElementsByClassName("security-question-answer--two")[0].value
             ];
-            
+            console.log(`this is -----${userInput[3]}---------`);
             var inputValidationReport = [
                 verifyStringFormat(userInput[0], true, true, true),
                 verifyStringFormat(userInput[1], true, false, true, false),
@@ -162,8 +162,7 @@ docReady(function () {
                 //user can create account now
                 createNewUser(
                     `/uniqueUsername/:${userInput[0]}`,
-                    `/createUser/:${userInput[0]}/:${userInput[1]}/:${userInput[3]}
-                    /:${userInput[4]}/:${userInput[5]}/:${userInput[6]}`
+                    `/createUser/:${userInput[0]}/:${userInput[1]}/:${userInput[3]}/:${userInput[4]}/:${userInput[5]}/:${userInput[6]}`
                 );
             }
             else{

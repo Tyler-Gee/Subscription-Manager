@@ -3,12 +3,14 @@
 
 import Landing from "./views/Landing.js";
 import CreateAccount from "./views/CreateAccount.js";
+import AccountRecovery from "./views/AccountRecovery.js";
+import Dashboard from "./views/Dashboard.js";
 
 const navigateTo = (url) => {
     history.pushState(null, null, url);
     router();
 }
-const pathToRegex = path=> new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
+const pathToRegex = path => new RegExp("^" + path.replace(/\//g, "\\/").replace(/:\w+/g, "(.+)") + "$");
 
 const getParams = match => {
     const values = match.result.slice(1);
@@ -24,13 +26,12 @@ const getParams = match => {
 const router = async () => {
     const routes = [
         {path: "/", view: Landing},
-        //{path: "/forgot-password", view: () => console.log("View forgot-password")},
+        {path: "/:username", view: Dashboard},
+        {path: "/forgot-password", view: AccountRecovery},
         {path: "/need-account", view: CreateAccount},
-        //{path: "/create-account", view: () => console.log("View sign-in")},
-        //{path: "/sign-in", view: () => console.log("View sign-in")},
-        //{path: "/sign-in-google", view: () => console.log("View sign-in via Google")},
-        //{path: "/sign-in-facebook", view: () => console.log("View sign-in via Facebook")},
-        //{path: "/sign-in-paypal", view: () => console.log("View sign-in via Paypal")}
+        {path: "/sign-in-google", view: () => console.log("View sign-in via Google")},
+        {path: "/sign-in-facebook", view: () => console.log("View sign-in via Facebook")},
+        {path: "/sign-in-paypal", view: () => console.log("View sign-in via Paypal")}
 
     ];
 
@@ -100,8 +101,11 @@ docReady(function () {
                             createCookie("password", user_password, 1000);
                         }
                     }
+                    setInnerHtml(Dashboard, "app", "id")
                 }
-            }).catch((error) => {console.log("Throw Errors");});
+            }).catch((error) => {
+                console.log("Throw Errors");
+            });
         }
         else{
             console.log("username is not in a valid format");
@@ -135,7 +139,7 @@ docReady(function () {
                 document.getElementsByClassName("security-question--two")[0].value,
                 document.getElementsByClassName("security-question-answer--two")[0].value
             ];
-            console.log(`this is -----${userInput[3]}---------`);
+            
             var inputValidationReport = [
                 verifyStringFormat(userInput[0], true, true, true),
                 verifyStringFormat(userInput[1], true, false, true, false),
@@ -160,75 +164,32 @@ docReady(function () {
 
             if(errCodeFound == false){
                 //user can create account now
-                createNewUser(
+                var createAccountProm = createNewUser(
                     `/uniqueUsername/:${userInput[0]}`,
                     `/createUser/:${userInput[0]}/:${userInput[1]}/:${userInput[3]}/:${userInput[4]}/:${userInput[5]}/:${userInput[6]}`
                 );
+                
+                createAccountProm.then((response) => {
+                    if(response == "success"){
+                        navigateTo("/");
+                    }
+                    else {
+                        statusMessage(response, "Database response\nFormat: Ok");
+                        // /Location.reload();
+                    }
+                }).catch((err) => {
+                    location.reload();
+                });
             }
             else{
                 // there was an issue and user needs to be use different 
-                console.log("bad");
+                console.log("User input did not match the required format\n");
+                location.reload();
             }
 
         },false);   
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//this is just a test of creating a user
-function createaccountexample(){
-    return "hello";
-    /* document.getElementsByClassName("sign-in-module__btn")[0].addEventListener("click", (event) => {
-        event.preventDefault();
-
-        
-        var user_username = document.getElementsByClassName("sign-in-module__form--username")[0].value;
-        let user_password = document.getElementsByClassName("sign-in-module__form--password")[0].value;
-        var usernameValidationErrors = verifyStringFormat(user_username);
-        
-        if (usernameValidationErrors.length == 0) {
-            const createAccountPromise = createNewUser(
-                `/uniqueUsername/:${user_username}`,
-                `/createUser/:${user_username}/:${user_password}`
-            );
-
-            createAccountPromise.then((response) => {
-                if(document.getElementsByClassName("sign-in-module__checkbox--checkbox")[0].checked == true){
-                    document.cookie = `username=${user_username}`;
-                    document.cookie = `password=${user_password}`;
-                }
-            })
-            .catch((error) => {
-                console.log(`Status: ${error}`);
-            });
-
-
-        } else {
-            // if not valid username
-            usernameValidationErrors.forEach((errorCode) => {
-                console.log(errorCode);
-            });
-        }
-    },false); */
-}
-
 
 function docReady(fn) {
     // see if DOM is already available
@@ -415,111 +376,19 @@ function createCookie(name, value, expireDayCount){
     document.cookie = `${name}=${value};${expires};path=/`;
 }
 
-
-/* 
-
-https://www.geeksforgeeks.org/how-to-make-javascript-wait-for-a-api-request-to-return/
-https://medium.com/@armando_amador/how-to-make-http-requests-using-fetch-api-and-promises-b0ca7370a444
-https://developers.google.com/web/fundamentals/primers/async-functions#top_of_page
-function HTTP_ROUTE__fetchBasic(path){
-    fetch(path).then(function (response) {
-		if (response.ok) {
-            console.log(response.text());
-			return response.text();
-		} else {
-			var error = new Error(response.statusText);
-			error.response = response;
-			throw error;
-		}
-	});
-} 
-function HTTP_REQUEST__fetchBasicTwo(path){
-    return fetch(path)
-		.then((response) => response.text())
-		.then((text) => {
-			console.log(text);
-        }).catch(err => {
-            console.error('fetch failed', err);
-        });
-}
-function HTTP_ROUTE__fetchPromise(path) {
-	return new Promise((resolve, reject) => {
-		fetch(path).then(
-			(response) => {
-				resolve(response.text());
-			},
-			(error) => {
-				reject(error);
-			}
-		);
-	});
-}
-async function HTTP_ROUTE__fetchAsync(path) {
-    try {
-		const response = await fetch(path);
-		console.log(await response.text());
-	} catch (err) {
-		console.error("fetch failed", err);
-	}
+function statusMessage(status, reason){
+    console.log(`Status: ${status}\nReason: ${reason}`);
 }
 
-function javascript_promise(){
-    let prom = new Promise((resolve, reject) => {
-        let a = 1 + 2;
-        if(a == 3){
-            resolve("true")
-        }
-        else{
-            reject("false");
-        }
-    });
-    prom.then((message) => {
-        console.log("This is correct");
-    }).catch((message) => {
-        console.log("This is incorrect");
+async function setInnerHtml(pageView, name, attributeType) {
+    var elementToFill;
+    const view = new pageView();
+    await view.getHtml().then(response => {
+        (attributeType == "id") ? elementToFill = `#${name}` : elementToFill = `.${name}`;
+        document.querySelector(elementToFill).innerHTML = response;
+        return;
+    }).catch(err => {
+        console.log(err);
+        return;
     });
 }
-
-
-
-//check if username exists in the system
-            const usernameExists = HTTP_ROUTE__returnFetchAsPromise(`/uniqueUsername/:${user_username}`);
-
-            usernameExists.then((response) => {
-                if(response == "username--exists"){
-                    // check if username and password are correct
-                    const accountExists = HTTP_ROUTE__returnFetchAsPromise(
-                        `/verifyCredentials/:${user_username}/:${user_password}`
-                    );
-
-                    accountExists.then((response) => {
-                        // if http request is successfull, check if a valid user and password was found on the database
-                        if (response == "credentials--correct") {
-                            var usernameCookie = getCookie("username");
-                            var passwordCookie = getCookie("password");
-
-                            // if no cookie for the user was found, create one
-                            if (usernameCookie == null || passwordCookie == null) {
-                                createCookie("username", user_username, 1000);
-                                createCookie("password", user_password, 1000);
-                            }
-
-                        } else {
-                            // let the user know that they have entered a wrong username or password
-                            console.log("Password entered is incorrect");
-                        }
-
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        console.log("There was an error in trying to verify your user account information");
-                    });
-                    
-                }
-                else {
-                    console.log("username does not exists");
-                }
-			}).catch((error) => {
-                console.log("there was an error when trying to determine if the username entered is in the database");
-			});
-*/ 

@@ -10,7 +10,6 @@ export default class extends AbstractView {
         return `
             <header>
                 <div class="header">
-                    <div class="nav-bar"></div>
                     <div class="sign-in-module">
                         <div class="sign-in-module__container--upper">
                             <h1 class="sign-in-module__heading">Log In</h1>
@@ -30,7 +29,7 @@ export default class extends AbstractView {
                                 </div>
                             </div>
                             <p class="sign-in-module__user-agreement-text">By clicking on Sign In you agree with<br>our Terms & Conditions</p>
-                            <a href="/users" class="btn btn--primary-color btn--animated sign-in-module__btn" data-link> SIGN IN</a>
+                            <a href="" class="btn btn--primary-color btn--animated sign-in-module__btn" data-link> SIGN IN</a>
                             <p class="sign-in-module__sign-in-option-text"> Or with</p>
                         </div>
                         <div class="row sign-in-module__container--lower">

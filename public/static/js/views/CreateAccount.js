@@ -7,7 +7,6 @@ export default class extends AbstractView {
     }
 
     async getHtml() {
-        console.log(this.params.username);
         return `
             <main>
                 <div class="create-account-page-container">

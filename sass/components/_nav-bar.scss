@@ -1,0 +1,28 @@
+.nav-bar {
+    position: relative;
+    height: 3.5rem;
+    width: 100%;
+    background-color: $color-secondary;
+
+    &__btn-container{
+        &--row{
+            position: absolute;
+            right: 0;
+            height: 3.5rem;
+            width: 10%;
+        }
+
+        &--col{
+            text-align: center;
+        }
+    }
+
+    &__btn--need-account,
+    &__btn--notifications{
+        font-size: 1.5rem;
+        text-decoration: none;
+        color: white;
+        padding: .5rem;
+    }
+    
+}

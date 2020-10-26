@@ -325,6 +325,24 @@ h1, h2, h3, h4, h5, h6 {
     padding: 2.5rem 0;
     border-radius: 0 3px; }
 
+.nav-bar {
+  position: relative;
+  height: 3.5rem;
+  width: 100%;
+  background-color: #9846f2; }
+  .nav-bar__btn-container--row {
+    position: absolute;
+    right: 0;
+    height: 3.5rem;
+    width: 10%; }
+  .nav-bar__btn-container--col {
+    text-align: center; }
+  .nav-bar__btn--need-account, .nav-bar__btn--notifications {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: white;
+    padding: .5rem; }
+
 .header {
   position: relative;
   height: 101rem;
